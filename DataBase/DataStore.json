@@ -3,40 +3,50 @@
         "Id": 101,
         "UserName": "Praveen",
         "Password": "password",
-        "Subject": "Maths",
         "Experience": 10,
         "DateOfJoining": "2021-08-02",
         "PhoneNumber": "23423423",
+        "Subject": "Maths",
         "Type": null
     },
     {
         "Id": 102,
         "UserName": "TestUser102",
         "Password": "pass",
-        "Subject": "Computer Science",
         "Experience": 11,
         "DateOfJoining": "2021-08-02",
         "PhoneNumber": "3451234123",
+        "Subject": "Computer Science",
         "Type": null
     },
     {
         "Id": 3,
         "UserName": "TestUser103",
         "Password": "pass123",
-        "Subject": "science social",
         "Experience": 3,
         "DateOfJoining": "2021-08-04",
         "PhoneNumber": "2452352345",
+        "Subject": "science social",
         "Type": null
     },
     {
         "Id": 4,
         "UserName": "TestUser104",
         "Password": "pass",
-        "Subject": "Ecnomics",
         "Experience": 3,
         "DateOfJoining": "2021-08-04",
         "PhoneNumber": "21352346",
+        "Subject": "Ecnomics",
         "Type": null
+    },
+    {
+        "Id": 2,
+        "UserName": "testuser6",
+        "Password": "pass",
+        "Experience": 2,
+        "DateOfJoining": "2021-08-07",
+        "PhoneNumber": "2111",
+        "Subject": "maths",
+        "Type": "Support Staff"
     }
 ]

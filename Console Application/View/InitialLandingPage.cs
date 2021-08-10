@@ -16,7 +16,24 @@ namespace ConsoleApplication.View
             Console.WriteLine("2. Staff Signup");
             Console.Write("Enter your choice now: ");
             int selectedOption = Convert.ToInt32(Console.ReadLine());
-            Logon.LogonScreen(selectedOption);
+            switch (selectedOption)
+                {
+                    case 1:
+                        {
+                            Logon.LogonScreen();
+                            break;
+                        }
+                    case 2:
+                        {
+                            Logon.Register();
+                            break;
+                        }
+                    default:
+                        {
+                            Console.WriteLine("Invalid choice");
+                            break;
+                        }
+                }           
             }while(Continue());
 
         }

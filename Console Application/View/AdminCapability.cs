@@ -7,10 +7,9 @@ namespace ConsoleApplication.View
 {
     public class AdminCapability
     {
-        public void AdminActions(User user)
+        public void AdminActions()
         {
             AdminControl client = new AdminControl();
-            StaffController controller = new StaffController();
             int latestId = IdCalculate.ComputeId();
             do
             {
@@ -30,58 +29,31 @@ namespace ConsoleApplication.View
                 {
                     case 1:
                         {
-                            Console.WriteLine("Fetching all Data\n");
-                            client.GetAllStaff();
+                            
                             break;
                         }
                     case 2:
                         {
-                            Console.Write("Enter Id of staff to view : ");
-                            string id = Console.ReadLine();
-                            client.GetStaff(Convert.ToInt32(id));
+                            
                             break;
                         }
                     case 3:
                         {
                             
-                                Console.WriteLine("Enter details of staff");
-                                var staff = new Staff();
-                                staff.Id = latestId;
 
-                                Console.Write("UserName: ");
-                                staff.UserName = Console.ReadLine();
-
-                                Console.Write("Password: ");
-                                staff.Password = Console.ReadLine();
-
-                                Console.Write("Subject: ");
-                                staff.Subject = Console.ReadLine();
-
-                                Console.Write("Experience: ");
-                                staff.Experience = Convert.ToInt32(Console.ReadLine());
-
-                                Console.Write("Phone: ");
-                                staff.PhoneNumber = Console.ReadLine();
-
-                                Console.Write("Date of Joining: ");
-                                staff.DateOfJoining = Console.ReadLine();
-
-                                staff.Type = "Teaching Staff";
-
-                                client.AddStaff(staff);
-                            
                             break;
                         }
                     case 4:
                         {
-                            int id = user.Id;
-                            var staffDTO = new StaffUpdateDTO(); 
+                            int id;
+                            bool flag = false;
+                            int exp;
+                            var staffDTO = new StaffUpdateDTO();
                             Console.WriteLine("Enter Id of staff to edit");
-                            id = Convert.ToInt32(Console.ReadLine());      
-                            Console.WriteLine("Enter property name and new value");
+                            id = Convert.ToInt32(Console.ReadLine());
                             do
                             {
-                                Console.Write("Enter one property to edit: (UserName , Password , Subject , Experience, Phone, DateOfJoining): ");
+                                Console.Write("Enter one property to edit: (UserName , Password , Subject , Experience, Phone, DateOfJoining, Type): ");
                                 var property = Console.ReadLine();
                                 Console.Write("Enter new value: ");
                                 var value = Console.ReadLine();
@@ -92,7 +64,50 @@ namespace ConsoleApplication.View
                                     Console.WriteLine("Wrong PropertyName");
                                     break;
                                 }
-                                propInfo.SetValue(staffObj, value);
+                                if (property == "Experience")
+                                {
+                                    do
+                                    {
+                                        flag = true;
+                                        Console.Write("Enter new value: ");
+                                        while (!int.TryParse(Console.ReadLine(), out exp))
+                                        {
+                                            Console.Write("This is an invalid input, please enter a number: ");
+                                        }
+                                        try
+                                        {
+                                            propInfo.SetValue(staffObj, exp);
+
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            Console.WriteLine(e.Message);
+                                            flag = false;
+
+                                        }
+                                    } while (!flag);
+
+                                }
+                                else
+                                {
+                                    do
+                                    {
+                                        flag = true;
+                                        Console.Write("Enter new value: ");
+                                        value = Console.ReadLine();
+                                        try
+                                        {
+                                            propInfo.SetValue(staffObj, value);
+
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            Console.WriteLine(e.Message);
+                                            flag = false;
+                                        }
+                                    }
+                                    while (!flag);
+                                }
 
                                 client.EditStaff(id, staffObj);
 
@@ -125,7 +140,7 @@ namespace ConsoleApplication.View
         }
 
 
-        public void StaffAction()
+        public void StaffAction(User user)
         {
 
             StaffController client = new StaffController();
@@ -146,36 +161,17 @@ namespace ConsoleApplication.View
                 {
                     case 1:
                         {
-                            Console.WriteLine("Enter details of staff");
-                            var staff = new Staff();
-                            staff.Id = latestId;
-
-                            Console.Write("UserName: ");
-                            staff.UserName = Console.ReadLine();
-
-                            Console.Write("Password: ");
-                            staff.Password = Console.ReadLine();
-
-                            Console.Write("Subject: ");
-                            staff.Subject = Console.ReadLine();
-
-                            Console.Write("Experience: ");
-                            staff.Experience = Convert.ToInt32(Console.ReadLine());
-
-                            Console.Write("Phone: ");
-                            staff.PhoneNumber = Console.ReadLine();
-
-                            Console.Write("Date of Joining: ");
-                            staff.DateOfJoining = Console.ReadLine();
-
-                            staff.Type = "Teaching Staff";
-
-                            client.AddStaff(staff);
+                            client.AddStaff();
                             break;
                         }
                     case 2:
                         {
+                            int id = user.Id;
+                            bool flag = false;
+                            int exp;
                             var staffDTO = new StaffUpdateDTO();
+                            Console.WriteLine("Enter Id of staff to edit");
+                            id = Convert.ToInt32(Console.ReadLine());
                             do
                             {
                                 Console.Write("Enter one property to edit: (UserName , Password , Subject , Experience, Phone, DateOfJoining): ");
@@ -189,8 +185,52 @@ namespace ConsoleApplication.View
                                     Console.WriteLine("Wrong PropertyName");
                                     break;
                                 }
-                                propInfo.SetValue(staffObj, value);
-                                client.EditStaff(latestId, staffObj);
+                                if (property == "Experience")
+                                {
+                                    do
+                                    {
+                                        flag = true;
+                                        Console.Write("Enter new value: ");
+                                        while (!int.TryParse(Console.ReadLine(), out exp))
+                                        {
+                                            Console.Write("This is an invalid input, please enter a number: ");
+                                        }
+                                        try
+                                        {
+                                            propInfo.SetValue(staffObj, exp);
+
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            Console.WriteLine(e.Message);
+                                            flag = false;
+
+                                        }
+                                    } while (!flag);
+
+                                }
+                                else
+                                {
+                                    do
+                                    {
+                                        flag = true;
+                                        Console.Write("Enter new value: ");
+                                        value = Console.ReadLine();
+                                        try
+                                        {
+                                            propInfo.SetValue(staffObj, value);
+
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            Console.WriteLine(e.Message);
+                                            flag = false;
+                                        }
+                                    }
+                                    while (!flag);
+                                }
+
+                                client.EditStaff(id, staffObj);
 
                             } while (Continue("edit"));
                             break;

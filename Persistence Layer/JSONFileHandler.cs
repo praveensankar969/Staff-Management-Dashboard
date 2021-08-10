@@ -12,11 +12,21 @@ namespace PersistenceLayer.JSONHandler
     {
         string filePath = @"C:\D\Work\Dotnet\Staff Management\DataBase\DataStore.json";
 
-        public void AddStaff(Staff staff)
+        public void AddStaff<T>(T admin)
         {
             var json = File.ReadAllText(filePath);
             List<Staff> staffs = JsonConvert.DeserializeObject<List<Staff>>(json);
-            staffs.Add(staff);
+            Staff newStaff = new Staff {
+                Id= (int)typeof(T).GetProperty("Experience").GetValue(admin),
+                UserName = (string) typeof(T).GetProperty("UserName").GetValue(admin),
+                Password = (string) typeof(T).GetProperty("Password").GetValue(admin),
+                Experience = (int)typeof(T).GetProperty("Experience").GetValue(admin),
+                DateOfJoining = (string)typeof(T).GetProperty("DateOfJoining").GetValue(admin),
+                PhoneNumber = (string)typeof(T).GetProperty("PhoneNumber").GetValue(admin),
+                Subject = (string)typeof(T).GetProperty("Subject").GetValue(admin),
+                Type = (string)typeof(T).GetProperty("Type").GetValue(admin)
+            };
+            staffs.Add(newStaff);
             string jsonResult = JsonConvert.SerializeObject(staffs);
             File.WriteAllText(filePath, jsonResult);
         }
