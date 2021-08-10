@@ -1,0 +1,42 @@
+[
+    {
+        "Id": 101,
+        "UserName": "Praveen",
+        "Password": "password",
+        "Subject": "Maths",
+        "Experience": 10,
+        "DateOfJoining": "2021-08-02",
+        "PhoneNumber": "23423423",
+        "Admin": true
+    },
+    {
+        "Id": 102,
+        "UserName": "TestUser102",
+        "Password": "pass",
+        "Subject": "Computer Science",
+        "Experience": 11,
+        "DateOfJoining": "2021-08-02",
+        "PhoneNumber": "3451234123",
+        "Admin": false
+    },
+    {
+        "Id": 3,
+        "UserName": "TestUser103",
+        "Password": "pass123",
+        "Subject": "Social",
+        "Experience": 3,
+        "DateOfJoining": "2021-08-04",
+        "PhoneNumber": "2452352345",
+        "Admin": false
+    },
+    {
+        "Id": 4,
+        "UserName": "TestUser104",
+        "Password": "pass",
+        "Subject": "Ecnomics",
+        "Experience": 3,
+        "DateOfJoining": "2021-08-04",
+        "PhoneNumber": "21352346",
+        "Admin": false
+    }
+]

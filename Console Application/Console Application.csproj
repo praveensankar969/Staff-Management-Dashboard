@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	</ItemGroup>
+  <ItemGroup>
+  <Compile Include="..\Models\Staff.cs" Link="Staff.cs" />
+  <Compile Include="..\Models\LoginDTO.cs" Link="LoginDTO.cs" />
+  <Compile Include="..\Models\StaffUpdateDTO.cs" Link="StaffUpdateDTO.cs" />
+  <Compile Include="..\Models\User.cs" Link="User.cs" />
+</ItemGroup>
+</Project>
