@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
+using Model.DTO;
 using Newtonsoft.Json;
-using PersistenceLayer.DTO;
 
 namespace ConsoleApplication.Service
 {

@@ -7,7 +7,7 @@
         "Experience": 10,
         "DateOfJoining": "2021-08-02",
         "PhoneNumber": "23423423",
-        "Admin": true
+        "Type": null
     },
     {
         "Id": 102,
@@ -17,17 +17,17 @@
         "Experience": 11,
         "DateOfJoining": "2021-08-02",
         "PhoneNumber": "3451234123",
-        "Admin": false
+        "Type": null
     },
     {
         "Id": 3,
         "UserName": "TestUser103",
         "Password": "pass123",
-        "Subject": "Social",
+        "Subject": "science social",
         "Experience": 3,
         "DateOfJoining": "2021-08-04",
         "PhoneNumber": "2452352345",
-        "Admin": false
+        "Type": null
     },
     {
         "Id": 4,
@@ -37,6 +37,6 @@
         "Experience": 3,
         "DateOfJoining": "2021-08-04",
         "PhoneNumber": "21352346",
-        "Admin": false
+        "Type": null
     }
 ]

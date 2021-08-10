@@ -1,6 +1,6 @@
 ﻿using System;
 using ConsoleApplication.Controller;
-using PersistenceLayer.DTO;
+using Model.DTO;
 
 namespace ConsoleApplication.View
 {

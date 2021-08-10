@@ -1,24 +1,16 @@
-using System;
+
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Model.DTO;
 using Newtonsoft.Json;
+using PersistenceLayer.Interfaces;
 
-namespace ConsoleApplication.Controller
+namespace PersistenceLayer.JSONHandler
 {
-    public class StaffController : Staff
+    public class JSONFileHandler : IActions
     {
         string filePath = @"C:\D\Work\Dotnet\Staff Management\DataBase\DataStore.json";
-
-        public void GetStaff(int id)
-        {
-            var json = File.ReadAllText(filePath);
-            List<Staff> staffs = JsonConvert.DeserializeObject<List<Staff>>(json);
-            var res = staffs.FirstOrDefault(x => x.Id == id);
-            Console.WriteLine("Details of Staff " + id + " are:");
-            Console.WriteLine("Name: " + res.UserName + " \tDate of Joining: " + res.DateOfJoining + " \tExperience: " + res.Experience + " \tSubject: " + res.Subject + " \tPhone: " + res.PhoneNumber);
-        }
 
         public void AddStaff(Staff staff)
         {
@@ -27,6 +19,20 @@ namespace ConsoleApplication.Controller
             staffs.Add(staff);
             string jsonResult = JsonConvert.SerializeObject(staffs);
             File.WriteAllText(filePath, jsonResult);
+        }
+
+        public void DeleteStaff(int id)
+        {
+            var json = File.ReadAllText(filePath);
+            List<Staff> staffs = JsonConvert.DeserializeObject<List<Staff>>(json);
+            var res = staffs.FirstOrDefault(x => x.Id == id);
+            if (res != null)
+            {
+                staffs.Remove(res);
+                string jsonResult = JsonConvert.SerializeObject(staffs);
+                File.WriteAllText(filePath, jsonResult);
+            }
+
         }
 
         public void EditStaff(int id, StaffUpdateDTO staffDTO)
@@ -45,16 +51,41 @@ namespace ConsoleApplication.Controller
             }
             string jsonResult = JsonConvert.SerializeObject(staffs);
             File.WriteAllText(filePath, jsonResult);
-
         }
-        public void DeleteStaff(int id)
+
+        public List<Staff> GetAllStaff()
+        {
+            var json = File.ReadAllText(filePath);
+            List<Staff> staffs = JsonConvert.DeserializeObject<List<Staff>>(json);
+            return staffs;
+        }
+
+        public Staff GetStaff(int id)
         {
             var json = File.ReadAllText(filePath);
             List<Staff> staffs = JsonConvert.DeserializeObject<List<Staff>>(json);
             var res = staffs.FirstOrDefault(x => x.Id == id);
-            staffs.Remove(res);
-            string jsonResult = JsonConvert.SerializeObject(staffs);
-            File.WriteAllText(filePath, jsonResult);
+            return res;
+        }
+
+        public User Login(LoginDTO login)
+        {
+            var json = File.ReadAllText(filePath);
+            List<Staff> staffs = JsonConvert.DeserializeObject<List<Staff>>(json);
+            var res = staffs.FirstOrDefault(x => x.UserName == login.UserName);
+            if (res == null)
+            {
+                return new User { Id = -1, Type = " " };
+            }
+            else
+            {
+                if (res.Password == login.Password)
+                {
+                    return new User { Id = res.Id, Type = res.Type };
+                }
+                return new User { Id = -1, Type = " " };
+            }
+
         }
     }
 }

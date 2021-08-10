@@ -1,11 +1,15 @@
+using System.Collections.Generic;
+using Model.DTO;
+
 namespace PersistenceLayer.Interfaces
 {
-    public interface Actions
+    public interface IActions
     {
         public void AddStaff(Staff Staff);
-        public void GetAllStaff();
-        public void GetStaff(int id);
+        public List<Staff> GetAllStaff();
+        public Staff GetStaff(int id);
         public void EditStaff(int id, StaffUpdateDTO staffDTO);
         public void DeleteStaff(int id);
+        public User Login(LoginDTO login);
     }
 }

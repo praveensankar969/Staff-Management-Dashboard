@@ -1,7 +1,7 @@
 using System;
 using ConsoleApplication.Controller;
 using ConsoleApplication.Service;
-using PersistenceLayer.DTO;
+using Model.DTO;
 
 namespace ConsoleApplication.View
 {

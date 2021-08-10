@@ -1,4 +1,4 @@
-namespace PersistenceLayer.DTO
+namespace Model.DTO
 {
     public class User
     {
