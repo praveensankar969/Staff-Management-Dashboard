@@ -32,8 +32,8 @@ namespace Model.DTO
                 }
             }
         }
-        private string _date;
-        public string DateOfJoining
+        private DateTime _date;
+        public DateTime DateOfJoining
         {
             get
             {
@@ -41,7 +41,7 @@ namespace Model.DTO
             }
             set
             {
-                if (DateTime.Parse(value) > DateTime.Now)
+                if (value > DateTime.Now)
                 {
                     throw new Exception("Joining Date cannot be in future");
                 }

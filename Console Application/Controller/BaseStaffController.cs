@@ -96,7 +96,7 @@ namespace Console_Application.Controller
                 flag = true;
                 try
                 {
-                    DateOfJoining = Console.ReadLine();
+                    DateOfJoining = DateTime.Parse(Console.ReadLine());
 
                 }
                 catch (Exception e)

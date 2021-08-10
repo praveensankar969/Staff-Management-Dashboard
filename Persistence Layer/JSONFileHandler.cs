@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace PersistenceLayer.JSONHandler
                 UserName = (string) typeof(T).GetProperty("UserName").GetValue(admin),
                 Password = (string) typeof(T).GetProperty("Password").GetValue(admin),
                 Experience = (int)typeof(T).GetProperty("Experience").GetValue(admin),
-                DateOfJoining = (string)typeof(T).GetProperty("DateOfJoining").GetValue(admin),
+                DateOfJoining = (DateTime)typeof(T).GetProperty("DateOfJoining").GetValue(admin),
                 PhoneNumber = (string)typeof(T).GetProperty("PhoneNumber").GetValue(admin),
                 Subject = (string)typeof(T).GetProperty("Subject").GetValue(admin),
                 Type = (string)typeof(T).GetProperty("Type").GetValue(admin)
@@ -53,11 +54,16 @@ namespace PersistenceLayer.JSONHandler
             if (res != null)
             {
                 res.UserName = staffDTO.UserName ?? res.UserName;
-                res.DateOfJoining = staffDTO.DateOfJoining ?? res.DateOfJoining;
                 res.Password = staffDTO.Password ?? res.Password;
                 res.PhoneNumber = staffDTO.PhoneNumber ?? res.PhoneNumber;
                 res.Subject = staffDTO.Subject ?? res.Subject;
                 res.Type = staffDTO.Type ?? res.Type;
+            }
+            if(typeof(StaffUpdateDTO).GetProperty("DateOfJoining").GetValue(staffDTO) !=null){
+                res.DateOfJoining = staffDTO.DateOfJoining;
+            }
+            if(typeof(StaffUpdateDTO).GetProperty("Experience").GetValue(staffDTO) !=null){
+                res.Experience = staffDTO.Experience;
             }
             string jsonResult = JsonConvert.SerializeObject(staffs);
             File.WriteAllText(filePath, jsonResult);

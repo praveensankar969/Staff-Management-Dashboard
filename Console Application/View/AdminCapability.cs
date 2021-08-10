@@ -29,18 +29,17 @@ namespace ConsoleApplication.View
                 {
                     case 1:
                         {
-                            
+                            client.GetAllStaff();
                             break;
                         }
                     case 2:
                         {
-                            
+                            client.GetStaff();
                             break;
                         }
                     case 3:
                         {
-                            
-
+                            client.AddStaff();
                             break;
                         }
                     case 4:
@@ -88,7 +87,28 @@ namespace ConsoleApplication.View
                                     } while (!flag);
 
                                 }
-                                else
+                                else if(property == "DateOfJoining")
+                                {
+                                    do
+                                    {
+                                        flag = true;
+                                        Console.Write("Enter new value: ");
+                                        
+                                        try
+                                        {
+                                            var val = DateTime.Parse(Console.ReadLine());
+                                            propInfo.SetValue(staffObj, value);
+
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            Console.WriteLine(e.Message);
+                                            flag = false;
+                                        }
+                                    }
+                                    while (!flag);
+                                }
+                                else 
                                 {
                                     do
                                     {
@@ -208,6 +228,27 @@ namespace ConsoleApplication.View
                                         }
                                     } while (!flag);
 
+                                }
+                                else if(property == "DateOfJoining")
+                                {
+                                    do
+                                    {
+                                        flag = true;
+                                        Console.Write("Enter new value: ");
+                                        
+                                        try
+                                        {
+                                            var val = DateTime.Parse(Console.ReadLine());
+                                            propInfo.SetValue(staffObj, value);
+
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            Console.WriteLine(e.Message);
+                                            flag = false;
+                                        }
+                                    }
+                                    while (!flag);
                                 }
                                 else
                                 {
