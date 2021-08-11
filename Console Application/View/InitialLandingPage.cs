@@ -3,29 +3,30 @@ using System;
 namespace ConsoleApplication.View
 {
 
-    public class InitialLandingPage
+    public static class InitialLandingPage
     {
-        public void LogonMain()
+        public static void LoginMain()
         {
-            
+
             //initial landing page
-            do{
+            do
+            {
                 Console.Clear();
-            Console.WriteLine("\t\tStaff Management System");
-            Console.WriteLine("1. Staff Logon");
-            Console.WriteLine("2. Staff Signup");
-            Console.Write("Enter your choice now: ");
-            int selectedOption = Convert.ToInt32(Console.ReadLine());
-            switch (selectedOption)
+                Console.WriteLine("\t\tStaff Management System");
+                Console.WriteLine("1. Staff Signin");
+                Console.WriteLine("2. Staff Signup");
+                Console.Write("Enter your choice now: ");
+                int selectedOption = Convert.ToInt32(Console.ReadLine());
+                switch (selectedOption)
                 {
                     case 1:
                         {
-                            Logon.LogonScreen();
+                            Login.Signin();
                             break;
                         }
                     case 2:
                         {
-                            Logon.Register();
+                            Login.Register();
                             break;
                         }
                     default:
@@ -33,15 +34,16 @@ namespace ConsoleApplication.View
                             Console.WriteLine("Invalid choice");
                             break;
                         }
-                }           
-            }while(Continue());
+                }
+            } while (Continue());
 
         }
-        public bool Continue(){
+        private static bool Continue()
+        {
 
             Console.Write("\nDo you wish to continue to Logon Page? (y/n) : ");
             string res = Console.ReadLine();
-            return res=="y" || res=="Y" ? true:false;
+            return res == "y" || res == "Y" ? true : false;
         }
     }
 

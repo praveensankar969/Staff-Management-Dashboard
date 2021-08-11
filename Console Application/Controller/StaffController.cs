@@ -5,22 +5,23 @@ using System.Linq;
 using Console_Application.Controller;
 using ConsoleApplication.Persistence;
 using Model.DTO;
-using Newtonsoft.Json;
+using PersistenceLayer.Interfaces;
 
 namespace ConsoleApplication.Controller
 {
     public class StaffController : BaseStaffController
     {
-       public override void AddStaff()
+       public override Staff AddStaff()
         {     
-            base.AddStaff();
-            Type = "Support Staff";
+            Staff staff = new Staff();
+            staff = base.AddStaff();
+            staff.Type = "Support Staff";
             Console.Write("Subject: ");
-            Subject = Console.ReadLine();
+            staff.Subject = Console.ReadLine();
             Type type = DataLayer.GetClass();
-            var obj = Activator.CreateInstance(type);
-            type.GetMethod("AddStaff").MakeGenericMethod(typeof(StaffController)).Invoke(obj, new object[] { this });
-            
+            IActions obj = Activator.CreateInstance(type) as IActions;
+            obj.AddStaff(this);
+            return staff;        
         }     
         
     }

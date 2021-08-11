@@ -4,39 +4,43 @@ using Model.DTO;
 
 namespace ConsoleApplication.View
 {
-    public static class Logon
+    public static class Login
     {
-        public static void LogonScreen()
+        public static void Signin()
         {
-            AdminCapability user = new AdminCapability();
-            AdminControl controller = new AdminControl();
             Console.Clear();
             Console.Write("Enter Username: ");
             string username = Console.ReadLine();
             Console.WriteLine();
             Console.Write("Enter Password: ");
             string pass = Console.ReadLine();
-            var res = controller.Login(new LoginDTO {UserName= username, Password = pass});
-            switch (res.Type)
+            AdminControl controller = new AdminControl();
+            var res = controller.Login(new LoginDTO { UserName = username, Password = pass });
+            if (res != null)
             {
-                case "Admin":
-                    {
-                        user.AdminActions();
-                        break;
-                    }
-                case "Teaching Staff":
-                case "Support Staff":
-                    {
-                        user.StaffAction(new User { Id = res.Id, Type = res.Type});
-                        break;
-                    }
-                default:
-                    {
-                        Console.WriteLine("Wrong username or password");
-                        break;
-                    }
+                UserCapability user = new UserCapability();
+                switch (res.Type)
+                {
+                    case "Admin":
+                        {
+                            user.AdminActions();
+                            break;
+                        }
+                    case "Teaching Staff":
+                    case "Support Staff":
+                        {
+                            user.StaffAction(new User { Id = res.Id, Type = res.Type });
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
             }
-
+            else{
+                Console.WriteLine("Invalid username or password");
+            }
         }
 
         public static void Register()

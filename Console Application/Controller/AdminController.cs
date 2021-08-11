@@ -1,26 +1,28 @@
 using System;
 using Console_Application.Controller;
 using ConsoleApplication.Persistence;
+using Model.DTO;
+using PersistenceLayer.Interfaces;
 
 namespace ConsoleApplication.Controller
 {
     public class AdminControl : BaseStaffController
     {
-       public override void AddStaff()
+       public override Staff AddStaff()
         {     
-            base.AddStaff();
+            Staff staff = base.AddStaff();
             Console.Write("Staff Type(Admin/Staff/Support): ");
-            Type = Console.ReadLine();
+            staff.Type = Console.ReadLine();
 
-            if (Type != "Admin")
+            if (staff.Type != "Admin")
             {
                 Console.Write("Subject: ");
-                Subject = Console.ReadLine();
+                staff.Subject = Console.ReadLine();
             }
             Type type = DataLayer.GetClass();
-            var obj = Activator.CreateInstance(type);
-            type.GetMethod("AddStaff").MakeGenericMethod(typeof(AdminControl)).Invoke(obj, new object[] { this });
-            
+            IActions obj = Activator.CreateInstance(type) as IActions;
+            obj.AddStaff(this); 
+            return staff;                
         }     
         
     }

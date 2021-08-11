@@ -7,9 +7,7 @@ namespace ConsoleApplication
     {
         static void Main(string[] args)
         {     
-            InitialLandingPage logon = new InitialLandingPage();
-            logon.LogonMain();
-            
+            InitialLandingPage.LoginMain();           
         }
     }
 }

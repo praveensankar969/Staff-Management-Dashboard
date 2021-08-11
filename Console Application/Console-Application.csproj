@@ -14,8 +14,8 @@
   <Compile Include="..\Models\LoginDTO.cs" Link="LoginDTO.cs" />
   <Compile Include="..\Models\StaffUpdateDTO.cs" Link="StaffUpdateDTO.cs" />
   <Compile Include="..\Models\User.cs" Link="User.cs" />
-  <Compile Include="..\Persistence Layer\JSONFileHandler.cs" Link="JSONFileHandler.cs" />
-   <Compile Include="..\Persistence Layer\DataBaseHandler.cs" Link="DataBaseHandler.cs" />
-  <Compile Include="..\Persistence Layer\IActions.cs" Link="IActions.cs" />
+  <Compile Include="..\Persistence\JSONFileHandler.cs" Link="JSONFileHandler.cs" />
+   <Compile Include="..\Persistence\DataBaseHandler.cs" Link="DataBaseHandler.cs" />
+  <Compile Include="..\Persistence\IActions.cs" Link="IActions.cs" />
 </ItemGroup>
 </Project>
