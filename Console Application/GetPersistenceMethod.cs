@@ -4,9 +4,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace ConsoleApplication.Persistence
 {
-    public static class DataLayer 
+    public static class Configuration 
     {
-        public static Type GetClass(){
+        public static Type GetStorageType(){
             IConfigurationBuilder builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);

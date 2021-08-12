@@ -12,7 +12,6 @@
   <ItemGroup>
   <Compile Include="..\Models\Staff.cs" Link="Staff.cs" />
   <Compile Include="..\Models\LoginDTO.cs" Link="LoginDTO.cs" />
-  <Compile Include="..\Models\StaffUpdateDTO.cs" Link="StaffUpdateDTO.cs" />
   <Compile Include="..\Models\User.cs" Link="User.cs" />
   <Compile Include="..\Persistence\JSONFileHandler.cs" Link="JSONFileHandler.cs" />
    <Compile Include="..\Persistence\DataBaseHandler.cs" Link="DataBaseHandler.cs" />

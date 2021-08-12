@@ -7,7 +7,7 @@
         "DateOfJoining": "2021-08-02",
         "PhoneNumber": "23423423",
         "Subject": "Maths",
-        "Type": null
+        "Type": "Admin"
     },
     {
         "Id": 102,
@@ -17,7 +17,7 @@
         "DateOfJoining": "2021-08-02",
         "PhoneNumber": "3451234123",
         "Subject": "Computer Science",
-        "Type": null
+        "Type": "Support"
     },
     {
         "Id": 3,
@@ -27,7 +27,7 @@
         "DateOfJoining": "2021-08-04",
         "PhoneNumber": "2452352345",
         "Subject": "science social",
-        "Type": null
+        "Type": "Support"
     },
     {
         "Id": 4,
@@ -37,7 +37,7 @@
         "DateOfJoining": "2021-08-04",
         "PhoneNumber": "21352346",
         "Subject": "Ecnomics",
-        "Type": null
+        "Type": "Support"
     },
     {
         "Id": 2,
@@ -47,6 +47,6 @@
         "DateOfJoining": "2021-08-07",
         "PhoneNumber": "2111",
         "Subject": "maths",
-        "Type": "Support Staff"
+        "Type": "Support"
     }
 ]

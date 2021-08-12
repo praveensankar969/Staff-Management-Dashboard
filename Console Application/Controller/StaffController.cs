@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Console_Application.Controller;
 using ConsoleApplication.Persistence;
+using ConsoleApplication.Service;
 using Model.DTO;
-using PersistenceLayer.Interfaces;
+using Persistence.Interfaces;
 
 namespace ConsoleApplication.Controller
 {
@@ -15,14 +13,13 @@ namespace ConsoleApplication.Controller
         {     
             Staff staff = new Staff();
             staff = base.AddStaff();
-            staff.Type = "Support Staff";
+            staff.Type = UserAccess.Privilege.Teacher.ToString();
             Console.Write("Subject: ");
             staff.Subject = Console.ReadLine();
-            Type type = DataLayer.GetClass();
+            Type type = Configuration.GetStorageType();
             IActions obj = Activator.CreateInstance(type) as IActions;
-            obj.AddStaff(this);
+            obj.AddStaff(staff);
             return staff;        
-        }     
-        
+        }           
     }
 }

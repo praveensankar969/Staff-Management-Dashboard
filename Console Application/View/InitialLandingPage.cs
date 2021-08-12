@@ -35,15 +35,15 @@ namespace ConsoleApplication.View
                             break;
                         }
                 }
-            } while (Continue());
+            } while (_Continue());
 
         }
-        private static bool Continue()
+        private static bool _Continue()
         {
 
             Console.Write("\nDo you wish to continue to Logon Page? (y/n) : ");
             string res = Console.ReadLine();
-            return res == "y" || res == "Y" ? true : false;
+            return res.ToLower()=="y" ? true : false;
         }
     }
 

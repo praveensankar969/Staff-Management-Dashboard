@@ -6,7 +6,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Model.DTO;
 
-namespace PersistenceLayer.APIHandler{
+namespace Persistence.APIHandler{
     public class SQLProcedure
     {
         private IConfiguration config;

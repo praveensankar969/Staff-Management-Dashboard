@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ConsoleApplication.Persistence;
 using Model.DTO;
-using PersistenceLayer.Interfaces;
+using Persistence.Interfaces;
 
 namespace Console_Application.Controller
 {
@@ -11,7 +11,7 @@ namespace Console_Application.Controller
         public void GetAllStaff()
         {
             Console.WriteLine("Fetching all Data\n");
-            Type type = DataLayer.GetClass();
+            Type type = Configuration.GetStorageType();
             IActions obj = Activator.CreateInstance(type) as IActions;
             List<Staff> staffs = obj.GetAllStaff();
             Console.WriteLine("Details are : ");
@@ -21,11 +21,9 @@ namespace Console_Application.Controller
             }
         }
 
-        public void GetStaff()
+        public Staff GetStaff(int id)
         {
-            Console.Write("Enter Id of staff to view : ");
-            int id = Convert.ToInt32(Console.ReadLine());
-            Type type = DataLayer.GetClass();
+            Type type = Configuration.GetStorageType();
             IActions obj = Activator.CreateInstance(type) as IActions;
             Staff res = obj.GetStaff(id);
             if (res == null)
@@ -38,21 +36,24 @@ namespace Console_Application.Controller
                 Console.WriteLine("Id: " + res.Id + "Name: " + res.UserName + " \tDate of Joining: " + res.DateOfJoining + " \tExperience: " + res.Experience + " \tSubject: " + res.Subject + " \tPhone: " + res.PhoneNumber);
             }
 
+            return res;
+
         }
         public virtual Staff AddStaff()
         {
-            Staff staff = new Staff();
+            
             Console.WriteLine("Enter details of new staff");
 
             Console.Write("UserName: ");
-            staff.UserName = Console.ReadLine();
+            var UserName = Console.ReadLine();
 
             Console.Write("Password: ");
-            staff.Password = Console.ReadLine();
+            var Password = Console.ReadLine();
 
             Console.Write("Experience: ");
             int exp;
             bool flag = false;
+            var Experience = 0;
             do
             {
                 flag = true;
@@ -62,7 +63,7 @@ namespace Console_Application.Controller
                 }
                 try
                 {
-                    staff.Experience = exp;
+                    Experience = exp;
 
                 }
                 catch (Exception e)
@@ -75,12 +76,13 @@ namespace Console_Application.Controller
             flag = false;
             
             Console.Write("Phone: ");
+            var PhoneNumber="";
             do
             {
                 flag = true;
                 try
                 {
-                    staff.PhoneNumber = Console.ReadLine();
+                    PhoneNumber = Console.ReadLine();
 
                 }
                 catch (Exception e)
@@ -93,12 +95,13 @@ namespace Console_Application.Controller
             flag = false;
 
             Console.Write("Date of Joining: ");
+            var DateOfJoining = DateTime.Now;
             do
             {
                 flag = true;
                 try
                 {
-                    staff.DateOfJoining = DateTime.Parse(Console.ReadLine());
+                    DateOfJoining = DateTime.Parse(Console.ReadLine());
 
                 }
                 catch (Exception e)
@@ -108,14 +111,16 @@ namespace Console_Application.Controller
 
                 }
             } while (!flag);
+
+            Staff staff = new Staff(UserName, Password, Experience, DateOfJoining, PhoneNumber, "", "");
             
             return staff;
         }
 
-        public void EditStaff(int id, StaffUpdateDTO staffDTO)
+        public void EditStaff(int id, Staff staffDTO)
         {
             
-            Type type = DataLayer.GetClass();
+            Type type = Configuration.GetStorageType();
             IActions obj = Activator.CreateInstance(type) as IActions;
             obj.EditStaff(id, staffDTO);
 
@@ -123,7 +128,7 @@ namespace Console_Application.Controller
         public void DeleteStaff(int id)
         {
 
-            Type type = DataLayer.GetClass();
+            Type type = Configuration.GetStorageType();
             IActions obj = Activator.CreateInstance(type) as IActions;
             obj.DeleteStaff(id);
 
@@ -131,7 +136,7 @@ namespace Console_Application.Controller
 
         public User Login(LoginDTO login)
         {
-            Type type = DataLayer.GetClass();
+            Type type = Configuration.GetStorageType();
             IActions obj = Activator.CreateInstance(type) as IActions;
             return obj.Login(login);
 

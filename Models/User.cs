@@ -1,5 +1,6 @@
 namespace Model.DTO
 {
+    
     public class User
     {
         public string Type { get; set; }

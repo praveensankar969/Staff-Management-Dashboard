@@ -5,7 +5,6 @@ namespace Model.DTO
 {
     public class Staff
     {
-
         public int Id { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
@@ -33,6 +32,7 @@ namespace Model.DTO
             }
         }
         private DateTime _date;
+
         public DateTime DateOfJoining
         {
             get
@@ -57,6 +57,21 @@ namespace Model.DTO
         }
         public string Subject { get; set; }
         public string Type { get; set; }
+
+        public Staff(string userName, string password, int experience, DateTime date, string phoneNumber, string subject, string type)
+        {       
+            UserName = userName;
+            Password = password;
+            Experience = experience;
+            DateOfJoining = date;
+            PhoneNumber = phoneNumber;
+            Subject = subject;
+            Type = type;
+        }
+
+        public Staff(){
+           
+        }
 
     }
 

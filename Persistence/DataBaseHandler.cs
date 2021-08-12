@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Model.DTO;
-using PersistenceLayer.Interfaces;
+using Persistence.Interfaces;
 
-namespace PersistenceLayer.DBHandler
+namespace Persistence.DBHandler
 {
     public class DataBaseHandler : IActions
     {
@@ -39,7 +39,7 @@ namespace PersistenceLayer.DBHandler
             }
         }
 
-        public void EditStaff(int id, StaffUpdateDTO admin)
+        public void EditStaff(int id, Staff admin)
         {
             using (connection = new SqlConnection(_config))
             {
@@ -144,8 +144,6 @@ namespace PersistenceLayer.DBHandler
                 SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-
-                    Console.WriteLine("Name: " + reader.GetString(1) + " \tDate of Joining: " + reader.GetDateTime(4) + " \tExperience: " + reader.GetInt32(3) + " \tPhone: " + reader.GetString(5) + " \tSubject: " + reader.GetString(6) + " \tStaff Type: " + reader.GetString(7));
                     return new Staff
                     {
                         Id = reader.GetInt32(0),

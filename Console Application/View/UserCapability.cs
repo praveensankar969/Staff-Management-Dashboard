@@ -33,7 +33,9 @@ namespace ConsoleApplication.View
                         }
                     case 2:
                         {
-                            client.GetStaff();
+                            Console.Write("Enter Id of staff to view : ");
+                            int id = Convert.ToInt32(Console.ReadLine());
+                            client.GetStaff(id);
                             break;
                         }
                     case 3:
@@ -46,7 +48,8 @@ namespace ConsoleApplication.View
                             int id;
                             Console.WriteLine("Enter Id of staff to edit: ");
                             id = Convert.ToInt32(Console.ReadLine());
-                            StaffUpdateDTO staffObj = EditStaffConsoleView("Enter one property to edit: (UserName , Password , Subject , Experience, Phone, DateOfJoining, Type): ");
+                            Staff staffObj = client.GetStaff(id);
+                            _EditStaffConsoleView("Enter one property to edit: (UserName , Password , Subject , Experience, Phone, DateOfJoining, Type): ", staffObj);
                             client.EditStaff(id, staffObj);
                             break;
                         }
@@ -77,7 +80,7 @@ namespace ConsoleApplication.View
 
                 }
 
-            } while (Continue("Move back to Admin Dashboard? (Y/N)"));
+            } while (_Continue("Move back to Admin Dashboard? (Y/N)"));
         }
 
 
@@ -105,7 +108,8 @@ namespace ConsoleApplication.View
                         }
                     case 2:
                         {
-                            StaffUpdateDTO staffObj = EditStaffConsoleView("Enter one property to edit: (UserName , Password , Subject , Experience, Phone, DateOfJoining): ");
+                            Staff staffObj = client.GetStaff(user.Id);
+                            _EditStaffConsoleView("Enter one property to edit: (UserName , Password , Subject , Experience, Phone, DateOfJoining): ", staffObj);
                             client.EditStaff(user.Id, staffObj);
                             break;
                         }
@@ -133,107 +137,90 @@ namespace ConsoleApplication.View
 
                 }
 
-            } while (Continue("Move back to Staff Dashboard? (Y/N)"));
+            } while (_Continue("Move back to Staff Dashboard? (Y/N)"));
 
 
         }
 
-        private static bool Continue(string editText)
+        private static bool _Continue(string editText)
         {
 
             Console.Write(editText);
             string res = Console.ReadLine();
-            return res == "y" || res == "Y" ? true : false;
+            return res.ToLower() == "y" ? true : false;
         }
 
-        private static StaffUpdateDTO EditStaffConsoleView(string viewProperty)
+        private static Staff _EditStaffConsoleView(string viewProperty, Staff staff)
         {
-            bool flag = false;
-            int exp;
-            var staffDTO = new StaffUpdateDTO();
+            const string ExperienceProperty = "Experience";
+            const string DateProperty = "DateOfJoining";
+            
             do
             {
                 Console.Write(viewProperty);
                 var property = Console.ReadLine();
-                Console.Write("Enter new value: ");
-                var value = Console.ReadLine();
-                var staffObj = new StaffUpdateDTO();
-                var propInfo = staffObj.GetType().GetProperty(property);
+                var propInfo = staff.GetType().GetProperty(property);
                 if (propInfo == null)
                 {
-                    Console.WriteLine("Wrong PropertyName");
+                    Console.WriteLine("Wrong Property Name");
                     break;
                 }
-                if (property == "Experience")
+                if (property == ExperienceProperty)
                 {
-                    do
+                    _SetPropertyValue(propInfo, staff, typeof(int));
+
+                }
+                else if (property == DateProperty)
+                {
+                    _SetPropertyValue(propInfo, staff, typeof(DateTime));
+                }
+                else
+                {
+                    _SetPropertyValue(propInfo, staff, typeof(string));
+                }
+
+
+            } while (_Continue("\nDo you wish to edit another detail of this staff? (y/n) : "));
+            
+
+            return staff;
+        }
+
+        private static void _SetPropertyValue(System.Reflection.PropertyInfo propInfo, Staff obj, Type type)
+        {
+            bool flag = true;
+            do
+            {
+                flag = true;
+                Console.Write("Enter new value: ");
+                try
+                {
+                    if (type == typeof(string))
                     {
-                        flag = true;
-                        Console.Write("Enter new value: ");
+                        var value = Console.ReadLine();
+                        propInfo.SetValue(obj, value);
+                    }
+                    else if (type == typeof(DateTime))
+                    {
+                        var value = DateTime.Parse(Console.ReadLine());
+                        propInfo.SetValue(obj, value);
+                    }
+                    else if (type == typeof(int))
+                    {
+                        int exp;
                         while (!int.TryParse(Console.ReadLine(), out exp))
                         {
                             Console.Write("This is an invalid input, please enter a number: ");
                         }
-                        try
-                        {
-                            propInfo.SetValue(staffObj, exp);
-
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                            flag = false;
-
-                        }
-                    } while (!flag);
-
-                }
-                else if (property == "DateOfJoining")
-                {
-                    do
-                    {
-                        flag = true;
-                        Console.Write("Enter new value: ");
-
-                        try
-                        {
-                            var val = DateTime.Parse(Console.ReadLine());
-                            propInfo.SetValue(staffObj, value);
-
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                            flag = false;
-                        }
+                        propInfo.SetValue(obj, exp);
                     }
-                    while (!flag);
                 }
-                else
+                catch (Exception e)
                 {
-                    do
-                    {
-                        flag = true;
-                        Console.Write("Enter new value: ");
-                        value = Console.ReadLine();
-                        try
-                        {
-                            propInfo.SetValue(staffObj, value);
-
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                            flag = false;
-                        }
-                    }
-                    while (!flag);
+                    Console.WriteLine(e.Message);
+                    flag = false;
                 }
-                
-
-            } while (Continue("\nDo you wish to edit another detail of this staff? (y/n) : "));
-
-            return staffDTO;
+            } while (!flag);
         }
 
 

@@ -5,9 +5,9 @@ using System.IO;
 using System.Linq;
 using Model.DTO;
 using Newtonsoft.Json;
-using PersistenceLayer.Interfaces;
+using Persistence.Interfaces;
 
-namespace PersistenceLayer.JSONHandler
+namespace Persistence.JSONHandler
 {
     public class JSONFileHandler : IActions
     {
@@ -46,7 +46,7 @@ namespace PersistenceLayer.JSONHandler
 
         }
 
-        public void EditStaff(int id, StaffUpdateDTO staffDTO)
+        public void EditStaff(int id, Staff staffDTO)
         {
             var json = File.ReadAllText(filePath);
             List<Staff> staffs = JsonConvert.DeserializeObject<List<Staff>>(json);
@@ -59,10 +59,10 @@ namespace PersistenceLayer.JSONHandler
                 res.Subject = staffDTO.Subject ?? res.Subject;
                 res.Type = staffDTO.Type ?? res.Type;
             }
-            if(typeof(StaffUpdateDTO).GetProperty("DateOfJoining").GetValue(staffDTO) !=null){
+            if(typeof(Staff).GetProperty("DateOfJoining").GetValue(staffDTO) !=null){
                 res.DateOfJoining = staffDTO.DateOfJoining;
             }
-            if(typeof(StaffUpdateDTO).GetProperty("Experience").GetValue(staffDTO) !=null){
+            if(typeof(Staff).GetProperty("Experience").GetValue(staffDTO) !=null){
                 res.Experience = staffDTO.Experience;
             }
             string jsonResult = JsonConvert.SerializeObject(staffs);
@@ -89,17 +89,13 @@ namespace PersistenceLayer.JSONHandler
             var json = File.ReadAllText(filePath);
             List<Staff> staffs = JsonConvert.DeserializeObject<List<Staff>>(json);
             var res = staffs.FirstOrDefault(x => x.UserName == login.UserName);
-            if (res == null)
+            if (res != null && res.Password ==login.Password)
             {
-                return new User { Id = -1, Type = " " };
+                return new User { Id = res.Id, Type = res.Type };
             }
             else
             {
-                if (res.Password == login.Password)
-                {
-                    return new User { Id = res.Id, Type = res.Type };
-                }
-                return new User { Id = -1, Type = " " };
+                return null;
             }
 
         }

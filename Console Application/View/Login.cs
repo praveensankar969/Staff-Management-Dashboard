@@ -1,11 +1,13 @@
 ﻿using System;
 using ConsoleApplication.Controller;
+using ConsoleApplication.Service;
 using Model.DTO;
 
 namespace ConsoleApplication.View
 {
     public static class Login
     {
+        //private enum Privilege { Admin, Teacher, Support }
         public static void Signin()
         {
             Console.Clear();
@@ -19,15 +21,16 @@ namespace ConsoleApplication.View
             if (res != null)
             {
                 UserCapability user = new UserCapability();
-                switch (res.Type)
+                UserAccess.Privilege prv = (UserAccess.Privilege)Enum.Parse(typeof(UserAccess.Privilege), res.Type);
+                switch (prv)
                 {
-                    case "Admin":
+                    case UserAccess.Privilege.Admin:
                         {
                             user.AdminActions();
                             break;
                         }
-                    case "Teaching Staff":
-                    case "Support Staff":
+                    case UserAccess.Privilege.Support:
+                    case UserAccess.Privilege.Teacher:
                         {
                             user.StaffAction(new User { Id = res.Id, Type = res.Type });
                             break;
