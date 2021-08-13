@@ -1,0 +1,38 @@
+
+<table class="staffs-table-table">
+    <th class="table-head"></th>
+    <th class="table-head">Id
+        <button class="sort-asc">
+            <i id='icon' class='material-icons sort'>north</i>
+        </button>
+    </th>
+    <th class="table-head">User Name
+        <button class="sort-asc" onclick="sortbyusername()">
+            <i id='icon' class='material-icons sort'>south</i>
+        </button>
+    </th>
+    <th class="table-head">Password</th>
+    <th class="table-head">Date Of Joining</th>
+    <th class="table-head">Subject</th>
+    <th class="table-head">Phone Number</th>
+    <th class="table-head">
+        <div class="dropdown">
+            <a onclick="opendropdown()" class="dropbtn">
+                Type
+                <i id='icon' class='material-icons filter'>list</i>
+            </a>
+            <div id="myDropdown" class="dropdown-content">
+                <a class="type-item" onclick="filtertype('Admin')">Admin</a>
+                <a class="type-item" onclick="filtertype('Teacher')">Teacher</a>
+                <a class="type-item" onclick="filtertype('Support')">Support</a>
+            </div>
+        </div>
+    </th>
+    <th class="table-head">
+        <button id="delete-selected" class='delete-selected-show'
+            onclick='deleteallselected()'>Delete Selected</button>
+        <button id="clear-filter" class='clear-filter-hidden' onclick='cleartypefilter()'>Clear
+            filter</button>
+    </th>
+    <tbody id="table-body"> </tbody>
+</table>

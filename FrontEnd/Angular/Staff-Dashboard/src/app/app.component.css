@@ -1,0 +1,41 @@
+.header{
+    color :inherit;
+}
+
+.navbar{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand-name{
+    color:inherit;
+    font-size: 2em;
+    padding : 1em;
+    cursor: pointer;
+}
+
+.brand-name:hover{
+    color : grey;
+}
+
+.navbar-link{
+    text-decoration: none;
+    color:inherit;   
+}
+
+.navbar-link-add{
+    text-decoration: none;
+    color:inherit; 
+    font-size: 1.5em;
+    padding :0.6em;
+}
+
+.navbar-link-add:hover{
+    background-color: white;
+    color: black;
+    transform: scale(1.05);
+    
+    border-radius: 10px;
+}
