@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Login } from './Modals/Login';
 import { Staff } from './Modals/Staff';
+import { shareReplay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,6 @@ export class HttpService {
   }
 
   FetchAllStaff(){
-    return this.http.get<Staff[]>("https://localhost:5001/api/staff");
+    return this.http.get<Staff[]>("https://localhost:5001/api/staff").pipe(shareReplay());
   }
 }
