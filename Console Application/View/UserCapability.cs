@@ -1,6 +1,5 @@
 using System;
 using ConsoleApplication.Controller;
-using ConsoleApplication.Service;
 using Model.DTO;
 
 namespace ConsoleApplication.View

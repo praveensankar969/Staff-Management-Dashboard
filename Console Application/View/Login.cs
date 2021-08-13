@@ -21,27 +21,36 @@ namespace ConsoleApplication.View
             if (res != null)
             {
                 UserCapability user = new UserCapability();
-                UserAccess.Privilege prv = (UserAccess.Privilege)Enum.Parse(typeof(UserAccess.Privilege), res.Type);
-                switch (prv)
+                Privilege prv;
+                if (!Enum.TryParse(res.Type, out prv))
                 {
-                    case UserAccess.Privilege.Admin:
-                        {
-                            user.AdminActions();
-                            break;
-                        }
-                    case UserAccess.Privilege.Support:
-                    case UserAccess.Privilege.Teacher:
-                        {
-                            user.StaffAction(new User { Id = res.Id, Type = res.Type });
-                            break;
-                        }
-                    default:
-                        {
-                            break;
-                        }
+                    Console.WriteLine("Error on staff type!!");
                 }
+                else
+                {
+                    switch (prv)
+                    {
+                        case Privilege.Admin:
+                            {
+                                user.AdminActions();
+                                break;
+                            }
+                        case Privilege.Support:
+                        case Privilege.Teacher:
+                            {
+                                user.StaffAction(new User { Id = res.Id, Type = res.Type });
+                                break;
+                            }
+                        default:
+                            {
+                                break;
+                            }
+                    }
+                }
+
             }
-            else{
+            else
+            {
                 Console.WriteLine("Invalid username or password");
             }
         }

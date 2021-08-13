@@ -13,7 +13,7 @@ namespace ConsoleApplication.Controller
         {     
             Staff staff = new Staff();
             staff = base.AddStaff();
-            staff.Type = UserAccess.Privilege.Teacher.ToString();
+            staff.Type = Privilege.Teacher.ToString();
             Console.Write("Subject: ");
             staff.Subject = Console.ReadLine();
             Type type = Configuration.GetStorageType();
