@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { HttpService } from './http.service';
 import { Staff } from './Modals/Staff';
 
@@ -14,9 +15,10 @@ export class StaffService {
   constructor(private http: HttpService) {
   }
 
-  GetAllStaff(){
-    this.http.FetchAllStaff().subscribe(res=> this.subject.next(res));
+  async GetAllStaff() {
+    await this.http.FetchAllStaff().pipe(map(res=> res.sort((a,b)=> a.id - b.id))).subscribe(res=> this.subject.next(res));
   }
+
 
 
 }
