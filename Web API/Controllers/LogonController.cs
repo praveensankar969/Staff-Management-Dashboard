@@ -36,7 +36,7 @@ namespace API.Controllers
         }
 
         [HttpPost("logon")]
-        public async Task<ActionResult<string>> Login(LoginDTO logon)
+        public async Task<ActionResult<LoginResponseDTO>> Login(LoginDTO logon)
         {
             SQLProcedure pro = new SQLProcedure(this._config);
             var user = await pro.Login(logon);
@@ -52,7 +52,8 @@ namespace API.Controllers
                     UserName = logon.UserName,
                     Type = user.Type
                 };
-                return tokenService.CreateToken(tokenObj);
+                return new LoginResponseDTO {
+                    Token = tokenService.CreateToken(tokenObj)};
             }
         }
 
