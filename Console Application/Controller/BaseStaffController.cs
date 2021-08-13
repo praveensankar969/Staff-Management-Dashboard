@@ -45,15 +45,15 @@ namespace Console_Application.Controller
             Console.WriteLine("Enter details of new staff");
 
             Console.Write("UserName: ");
-            var UserName = Console.ReadLine();
+            var userName = Console.ReadLine();
 
             Console.Write("Password: ");
-            var Password = Console.ReadLine();
+            var password = Console.ReadLine();
 
             Console.Write("Experience: ");
             int exp;
             bool flag = false;
-            var Experience = 0;
+            var experience = 0;
             do
             {
                 flag = true;
@@ -63,7 +63,7 @@ namespace Console_Application.Controller
                 }
                 try
                 {
-                    Experience = exp;
+                    experience = exp;
 
                 }
                 catch (Exception e)
@@ -76,13 +76,13 @@ namespace Console_Application.Controller
             flag = false;
             
             Console.Write("Phone: ");
-            var PhoneNumber="";
+            var phoneNumber="";
             do
             {
                 flag = true;
                 try
                 {
-                    PhoneNumber = Console.ReadLine();
+                    phoneNumber = Console.ReadLine();
 
                 }
                 catch (Exception e)
@@ -95,13 +95,13 @@ namespace Console_Application.Controller
             flag = false;
 
             Console.Write("Date of Joining: ");
-            var DateOfJoining = DateTime.Now;
+            var dateOfJoining = DateTime.Now;
             do
             {
                 flag = true;
                 try
                 {
-                    DateOfJoining = DateTime.Parse(Console.ReadLine());
+                    dateOfJoining = DateTime.Parse(Console.ReadLine());
 
                 }
                 catch (Exception e)
@@ -112,7 +112,7 @@ namespace Console_Application.Controller
                 }
             } while (!flag);
 
-            Staff staff = new Staff(UserName, Password, Experience, DateOfJoining, PhoneNumber, "", "");
+            Staff staff = new Staff(userName, password, experience, dateOfJoining, phoneNumber, "", "");
             
             return staff;
         }
