@@ -16,17 +16,17 @@ namespace ConsoleApplication.Controller
             bool flag = false;
             do
             {
-                try
-                {
-                    UserAccess.Privilege prev = (UserAccess.Privilege)Enum.Parse(typeof(UserAccess.Privilege),Console.ReadLine());
-                    staff.Type = prev.ToString();
-                    flag = true;
-                }
-                catch (Exception e)
+                Privilege prev;
+                if (!Enum.TryParse(Console.ReadLine(), out prev))
                 {
                     Console.WriteLine("Invalid user access type");
                     Console.WriteLine("Enter Staff Type: ");
                     flag = false;
+                }
+                else
+                {
+                    staff.Type = prev.ToString();
+                    flag = true;
                 }
             } while (!flag);
 
