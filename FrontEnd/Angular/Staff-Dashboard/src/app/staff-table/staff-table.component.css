@@ -1,0 +1,100 @@
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.staffs-table {
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+.table-head {
+    font-size: 1.3rem;
+    font-family: 'gilroy-bold';
+    margin: 0 5rem;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    height: 50px;
+}
+
+tr {
+    border-bottom: 1pt solid rgba(255, 255, 255, 0.664);
+}
+
+.tr-class:hover {
+    background-color: rgba(255, 255, 255, 0.616);
+    color: black
+}
+
+.td-class {
+    text-align: center;
+    margin: 0px;
+    font-size: 1.2rem;
+}
+
+.tr-class-edit {
+    color: black;
+    background-color: rgba(248, 219, 164, 0.616);
+}
+
+.dropbtn {
+    color: black;
+    padding: 16px;
+    border: none;
+    cursor: pointer;
+    font-family: 'gilroy-bold';
+    font-size: 1.3rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    max-width: 100px;
+    overflow: auto;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+.dropdown a:hover {
+    background-color: #ddd;
+}
+
+.show {
+    display: block;
+}
+
+
+#prev, #next {
+    background-color: rgb(0, 140, 255);
+    color: inherit;
+    border: 0px;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 15%;
+    height: 30px;   
+}
+
+.btn{
+    margin: 10px;
+}
+
+button:disabled, button[disabled]{
+    background-color: white !important;
+    color : rgba(59, 59, 59, 0.753) !important;
+}

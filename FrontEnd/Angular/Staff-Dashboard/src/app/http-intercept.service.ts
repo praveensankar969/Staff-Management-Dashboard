@@ -9,7 +9,6 @@ export class HttpInterceptService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
 
     const token = localStorage.getItem("TOKEN");
-    console.log(token);
     if (token != null) {
       req = req.clone({
         url: req.url,

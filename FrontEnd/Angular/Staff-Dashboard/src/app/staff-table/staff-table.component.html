@@ -1,21 +1,53 @@
-
-<table class="staffs-table-table">
+<table class="staffs-table">
+    <th class="table-head"></th>
     <th class="table-head">Id</th>
-    <th class="table-head">User Name </th>
+    <th class="table-head">User Name</th>
     <th class="table-head">Password</th>
     <th class="table-head">Date Of Joining</th>
     <th class="table-head">Experience</th>
     <th class="table-head">Subject</th>
     <th class="table-head">Phone Number</th>
-    <tbody id="table-body"> 
-        <tr *ngFor="let item of (staffService.obs | async)">
-            <td>{{item.id}}</td>
-            <td>{{item.userName}}</td>
-            <td>{{item.password}}</td>
-            <td>{{item.dateOfJoining}}</td>
-            <td>{{item.experience}}</td>
-            <td>{{item.subject}}</td>
-            <td>{{item.type}}</td>
+    <th class="table-head">
+        <div class="dropdown">
+            <a (click) = "toggleDropdown = !toggleDropdown" class="dropbtn">
+                Type
+                <i id='icon' class='material-icons filter'>list</i>
+            </a>
+            <div class="dropdown-content" [ngClass] = "toggleDropdown? 'show' : ''">
+                <a (click) ="TypeSelected($event)" class="type-item" >Admin</a>
+                <a (click) ="TypeSelected($event)" class="type-item" >Teacher</a>
+                <a (click) ="TypeSelected($event)" class="type-item" >Support</a>
+            </div>
+        </div>
+        <button class='table-header-btn' *ngIf="selectedRows.length>1">
+            <i id='icon' class='material-icons filter'>delete</i>
+        </button>
+        <button class='table-header-btn' *ngIf="filtered" >
+            <i id='icon' class='material-icons filter'>clear</i>
+        </button>
+    </th>
+    <th class="table-head"> </th>
+    <tbody id="table-body">
+        <tr class="tr-class" *ngFor="let item of (staffsObs | async); ">
+            <td><input type='checkbox' class='checkbox' id={{item.id}} (click)= "CheckboxSelected($event)"></td>
+            <td class="td-class">{{item.id}}</td>
+            <td class="td-class">{{item.userName}}</td>
+            <td class="td-class">{{item.password}}</td>
+            <td class="td-class">{{item.dateOfJoining}}</td>
+            <td class="td-class">{{item.experience}}</td>
+            <td class="td-class">{{item.subject}}</td>
+            <td class="td-class">{{item.phoneNumber}}</td>
+            <td class="td-class">{{item.type}}</td>
+            <td class="td-class">
+                <button class='table-header-btn'>
+                    <i id='icon' class='material-icons filter'>edit</i>
+                </button>
+                <button class='table-header-btn' *ngIf="selectedRows.length<2">
+                    <i id='icon' class='material-icons filter'>delete</i>
+                </button>
+            </td>
         </tr>
     </tbody>
 </table>
+<button class = "btn" id="prev" [disabled]="prevIndex<=0" (click)="PreviousPage()">Prev Page</button>
+<button class = "btn" id="next" [disabled]="nextIndex>=total" (click)="NextPage()">Next Page</button>

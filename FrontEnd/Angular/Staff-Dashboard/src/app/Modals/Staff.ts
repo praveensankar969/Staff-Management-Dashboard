@@ -5,5 +5,6 @@ export interface Staff{
     experience : number;
     dateOfJoining : Date;
     subject : string;
+    phoneNumber : string;
     type : string;
 }

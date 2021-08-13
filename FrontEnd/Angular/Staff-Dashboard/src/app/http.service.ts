@@ -19,12 +19,10 @@ export class HttpService {
   }
 
   Login(username : string, password : string) {
-    console.log("login")
-    this.http.post<Login>("https://localhost:5001/api/account/logon", {userName : username, password : password}).pipe(tap(res=> console.log(res)),catchError(err=> {return throwError(err)})).subscribe(res=> {localStorage.setItem("TOKEN", res.token)});  
+    this.http.post<Login>("https://localhost:5001/api/account/logon", {userName : username, password : password}).pipe(catchError(err=> {return throwError(err)})).subscribe(res=> {localStorage.setItem("TOKEN", res.token)});  
   }
 
   FetchAllStaff() {
-    console.log("fetch")
     return this.http.get<Staff[]>("https://localhost:5001/api/staff").pipe(shareReplay());
   }
 }
