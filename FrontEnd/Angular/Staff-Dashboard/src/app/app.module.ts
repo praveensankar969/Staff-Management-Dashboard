@@ -6,7 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { StaffTableComponent } from './staff-table/staff-table.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HttpInterceptService } from './http-intercept.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,11 @@ import {HttpClientModule} from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide :  HTTP_INTERCEPTORS,
+    useClass : HttpInterceptService,
+    multi : true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
