@@ -48,7 +48,8 @@ namespace ConsoleApplication.View
                             Console.WriteLine("Enter Id of staff to edit: ");
                             id = Convert.ToInt32(Console.ReadLine());
                             Staff staffObj = client.GetStaff(id);
-                            _EditStaffConsoleView("Enter one property to edit: (UserName , Password , Subject , Experience, Phone, DateOfJoining, Type): ", staffObj);
+                            _EditStaffConsoleView("Enter one property to edit: (UserName , Password , Subject,"+ 
+                                " Experience, Phone, DateOfJoining, Type): ", staffObj);
                             client.EditStaff(id, staffObj);
                             break;
                         }
@@ -108,7 +109,8 @@ namespace ConsoleApplication.View
                     case 2:
                         {
                             Staff staffObj = client.GetStaff(user.Id);
-                            _EditStaffConsoleView("Enter one property to edit: (UserName , Password , Subject , Experience, Phone, DateOfJoining): ", staffObj);
+                            _EditStaffConsoleView("Enter one property to edit: (UserName , Password , Subject , "+
+                                "Experience, Phone, DateOfJoining): ", staffObj);
                             client.EditStaff(user.Id, staffObj);
                             break;
                         }
@@ -153,7 +155,7 @@ namespace ConsoleApplication.View
         {
             const string ExperienceProperty = "Experience";
             const string DateProperty = "DateOfJoining";
-            
+
             do
             {
                 Console.Write(viewProperty);
@@ -180,7 +182,7 @@ namespace ConsoleApplication.View
 
 
             } while (_Continue("\nDo you wish to edit another detail of this staff? (y/n) : "));
-            
+
 
             return staff;
         }
@@ -192,33 +194,26 @@ namespace ConsoleApplication.View
             {
                 flag = true;
                 Console.Write("Enter new value: ");
-                try
+                if (type == typeof(string))
                 {
-                    if (type == typeof(string))
-                    {
-                        var value = Console.ReadLine();
-                        propInfo.SetValue(obj, value);
-                    }
-                    else if (type == typeof(DateTime))
-                    {
-                        var value = DateTime.Parse(Console.ReadLine());
-                        propInfo.SetValue(obj, value);
-                    }
-                    else if (type == typeof(int))
-                    {
-                        int exp;
-                        while (!int.TryParse(Console.ReadLine(), out exp))
-                        {
-                            Console.Write("This is an invalid input, please enter a number: ");
-                        }
-                        propInfo.SetValue(obj, exp);
-                    }
+                    var value = Console.ReadLine();
+                    propInfo.SetValue(obj, value);
                 }
-                catch (Exception e)
+                else if (type == typeof(DateTime))
                 {
-                    Console.WriteLine(e.Message);
-                    flag = false;
+                    var value = DateTime.Parse(Console.ReadLine());
+                    propInfo.SetValue(obj, value);
                 }
+                else if (type == typeof(int))
+                {
+                    int exp;
+                    while (!int.TryParse(Console.ReadLine(), out exp))
+                    {
+                        Console.Write("This is an invalid input, please enter a number: ");
+                    }
+                    propInfo.SetValue(obj, exp);
+                }
+
             } while (!flag);
         }
 
