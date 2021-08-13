@@ -19,5 +19,6 @@
   <Compile Include="..\Models\StaffUpdateDTO.cs" Link="StaffUpdateDTO.cs" />
   <Compile Include="..\Models\TokenDTO.cs" Link="TokenDTO.cs" />
   <Compile Include="..\Models\StaffWebAPI.cs" Link="StaffWebAPI.cs" />
+  <Compile Include="..\Models\LoginResponseDTO.cs" Link="LoginResponseDTO.cs" />
   </ItemGroup>
 </Project>
