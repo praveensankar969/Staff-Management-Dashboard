@@ -41,7 +41,7 @@ namespace Console_Application.Controller
         }
         public virtual Staff AddStaff()
         {
-            
+
             Console.WriteLine("Enter details of new staff");
 
             Console.Write("UserName: ");
@@ -61,36 +61,34 @@ namespace Console_Application.Controller
                 {
                     Console.Write("This is an invalid input, please enter a number: ");
                 }
-                try
+                experience = exp;
+                if (exp > 30)
                 {
-                    experience = exp;
-
+                    flag = true;
                 }
-                catch (Exception e)
+                else
                 {
-                    Console.WriteLine(e.Message);
                     flag = false;
-
+                    Console.WriteLine("Experience cannot be grater than 30");
                 }
             } while (!flag);
             flag = false;
-            
+
             Console.Write("Phone: ");
-            var phoneNumber="";
+            var phoneNumber = "";
             do
             {
-                flag = true;
-                try
+                phoneNumber = Console.ReadLine();
+                if (phoneNumber.Length == 10)
                 {
-                    phoneNumber = Console.ReadLine();
-
+                    flag = true;
                 }
-                catch (Exception e)
+                else
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine("Phonenumber should be 10 digits");
                     flag = false;
-
                 }
+
             } while (!flag);
             flag = false;
 
@@ -98,28 +96,25 @@ namespace Console_Application.Controller
             var dateOfJoining = DateTime.Now;
             do
             {
-                flag = true;
-                try
+                if (DateTime.TryParse(Console.ReadLine(), out dateOfJoining))
                 {
-                    dateOfJoining = DateTime.Parse(Console.ReadLine());
-
+                    flag = true;
                 }
-                catch (Exception e)
+                else
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine("Invalid date");
                     flag = false;
-
                 }
             } while (!flag);
 
             Staff staff = new Staff(userName, password, experience, dateOfJoining, phoneNumber, "", "");
-            
+
             return staff;
         }
 
         public void EditStaff(int id, Staff staffDTO)
         {
-            
+
             Type type = Configuration.GetStorageType();
             IActions obj = Activator.CreateInstance(type) as IActions;
             obj.EditStaff(id, staffDTO);
