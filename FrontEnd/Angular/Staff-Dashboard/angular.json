@@ -71,7 +71,8 @@
               "browserTarget": "Staff-Dashboard:build:production"
             },
             "development": {
-              "browserTarget": "Staff-Dashboard:build:development"
+              "browserTarget": "Staff-Dashboard:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

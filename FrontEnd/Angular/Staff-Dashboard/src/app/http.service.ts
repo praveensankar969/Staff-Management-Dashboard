@@ -2,25 +2,29 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Login } from './Modals/Login';
 import { Staff } from './Modals/Staff';
-import { shareReplay } from 'rxjs/operators';
+import { catchError, shareReplay, tap } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
 
-  
-  constructor(private http: HttpClient) { 
-    if(localStorage.getItem("TOKEN")==null){
-      this.Login({userName: "Praveen Sankar", password : "new password"});
-    }
+
+  constructor(private http: HttpClient) {
+
+    //if (localStorage.getItem("TOKEN") == null) {
+      //this.Login("Praveen Sankar", "new password");
+    //}
   }
 
-  Login(login : Login){
-    this.http.post("https://localhost:5001/api/account/logon", login).subscribe(res=> localStorage.setItem("TOKEN", res.toString()));
+  Login(username : string, password : string) {
+    console.log("login")
+    this.http.post<Login>("https://localhost:5001/api/account/logon", {userName : username, password : password}).pipe(tap(res=> console.log(res)),catchError(err=> {return throwError(err)})).subscribe(res=> {localStorage.setItem("TOKEN", res.token)});  
   }
 
-  FetchAllStaff(){
+  FetchAllStaff() {
+    console.log("fetch")
     return this.http.get<Staff[]>("https://localhost:5001/api/staff").pipe(shareReplay());
   }
 }

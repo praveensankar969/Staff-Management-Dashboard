@@ -11,11 +11,12 @@ export class StaffService {
   private subject = new BehaviorSubject<Staff[]>([]);
   obs = this.subject.asObservable();
 
-  constructor(private http: HttpService) { }
+  constructor(private http: HttpService) {
+  }
 
   GetAllStaff(){
     this.http.FetchAllStaff().subscribe(res=> this.subject.next(res));
   }
-  
+
 
 }
