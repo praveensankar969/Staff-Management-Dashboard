@@ -53,10 +53,10 @@ namespace Persistence.APIHandler{
             return res;
         }
 
-        public async Task<List<Staff>> GetAllData()
+        public async Task<List<StaffWebAPI>> GetAllData()
         {
             DataTable table = new DataTable();
-            List<Staff> staffs = new List<Staff>();
+            List<StaffWebAPI> staffs = new List<StaffWebAPI>();
             SqlConnection connection = new SqlConnection(config.GetConnectionString("DefaultConnection"));
             await connection.OpenAsync();
             SqlCommand cmd = new SqlCommand(@"dbo.[GetData]", connection);
@@ -66,7 +66,7 @@ namespace Persistence.APIHandler{
             foreach (DataRow row in table.Rows)
             {
                 staffs.Add(
-                    new Staff
+                    new StaffWebAPI
                     {
                         Id = Convert.ToInt32(row["Id"].ToString()),
                         UserName = row["Username"].ToString(),
@@ -84,7 +84,7 @@ namespace Persistence.APIHandler{
 
         }
 
-        public async Task<Staff> Login(LoginDTO logon)
+        public async Task<StaffWebAPI> Login(LoginDTO logon)
         {
             SqlConnection connection = new SqlConnection(config.GetConnectionString("DefaultConnection"));
             await connection.OpenAsync();
@@ -95,7 +95,7 @@ namespace Persistence.APIHandler{
             SqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {         
-                return new Staff
+                return new StaffWebAPI
                 {
                     Id = reader.GetInt32(0),
                     UserName = reader.GetString(1),
@@ -113,7 +113,7 @@ namespace Persistence.APIHandler{
             }
         }
 
-        public async Task<Staff> GetDataOfId(int id)
+        public async Task<StaffWebAPI> GetDataOfId(int id)
         {
             SqlConnection connection = new SqlConnection(config.GetConnectionString("DefaultConnection"));
             await connection.OpenAsync();
@@ -123,7 +123,7 @@ namespace Persistence.APIHandler{
             SqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {      
-                return new Staff
+                return new StaffWebAPI
                 {
                     Id = reader.GetInt32(0),
                     UserName = reader.GetString(1),

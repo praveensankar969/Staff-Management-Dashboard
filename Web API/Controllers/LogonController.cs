@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using API.Models;
 using Model.DTO;
-using PersistenceLayer.APIHandler;
+using Persistence.APIHandler;
 
 namespace API.Controllers
 {

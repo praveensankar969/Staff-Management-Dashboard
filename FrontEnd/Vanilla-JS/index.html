@@ -1,0 +1,129 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Management</title>
+    <script type="text/javascript" src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+
+<body onload="showdata()" class="body">
+    <section class="header">
+        <div class="navbar">
+            <a class="brand-logo-link" href="#">
+                <div class="brand-name">Staff Management Dashboard</div>
+            </a>
+        </div>
+    </section>
+    <section class="content">
+        <section class="table">
+            <div class="all-staffs">
+                <h3 class="staff-list-header">List of all staffs</h3>
+                <div class="staffs-table">
+                    <table class="staffs-table-table">
+                        <th class="table-head"></th>
+                        <th class="table-head">Id
+                            <button class="sort-asc" onclick="sortbyid()">
+                                <i id='icon' class='material-icons sort'>north</i>
+                            </button>
+                        </th>
+                        <th class="table-head">User Name
+                            <button class="sort-asc" onclick="sortbyusername()">
+                                <i id='icon' class='material-icons sort'>south</i>
+                            </button>
+                        </th>
+                        <th class="table-head">Password</th>
+                        <th class="table-head">Date Of Joining</th>
+                        <th class="table-head">Subject</th>
+                        <th class="table-head">Phone Number</th>
+                        <th class="table-head">
+                            <div class="dropdown">
+                                <a onclick="opendropdown()" class="dropbtn">
+                                    Type
+                                    <i id='icon' class='material-icons filter'>list</i>
+                                </a>
+                                <div id="myDropdown" class="dropdown-content">
+                                    <a class="type-item" onclick="filtertype('Admin')">Admin</a>
+                                    <a class="type-item" onclick="filtertype('Teacher')">Teacher</a>
+                                    <a class="type-item" onclick="filtertype('Support')">Support</a>
+                                </div>
+                            </div>
+                        </th>
+                        <th class="table-head">
+                            <button id="delete-selected" class='delete-selected-show'
+                                onclick='deleteallselected()'>Delete Selected</button>
+                            <button id="clear-filter" class='clear-filter-hidden' onclick='cleartypefilter()'>Clear
+                                filter</button>
+                        </th>
+                        <tbody id="table-body"> </tbody>
+                    </table>
+                    <button id="prev" onclick="prevpage()">Prev Page</button>
+                    <button id="next" onclick="nextpage()">Next Page</button>
+                </div>
+            </div>
+        </section>
+        <section class="add-staff">
+            <div class="add-staffs">
+                <div class="add-staff-header">
+                    <a onclick="addnewstaff()">Add New Staff</a>
+                </div>
+                <div class="select-type">
+                    <div class="select-drop" id="select-drop">
+                        <label class="type-label">Select staff type</label>
+                        <select class="select-type" name="type" id="select-type" onchange="togglepopupaddform()">
+                            <option value="">--type--</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Teacher">Teacher</option>
+                            <option value="Support">Support</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="add-form">
+                    <form id="form" action="/" onsubmit="onformsubmit()">
+                        <div class="form-section">
+                            <div class="add-form-subsection">
+                                <label for="">Username:</label>
+                                <input id="username" class="add-form-input" type="text" required>
+                            </div>
+                            <div class="add-form-subsection">
+                                <label for="">Password:</label>
+                                <input id="password" class="add-form-input" type="password" required>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <div class="add-form-subsection">
+                                <label for="">Date of Joining:</label>
+                                <input id="dateofjoin" class="add-form-input" type="text" required placeholder="yyyy-mm-dd">
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <div class="add-form-subsection">
+                                <label for="">Subject:</label>
+                                <input id="subject" class="add-form-input" type="text">
+                            </div>
+                            <div class="add-form-subsection">
+                                <label for="">Phone Number:</label>
+                                <input id="phone" class="add-form-input" type="number" required>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <div class="add-form-subsection">
+                                <button type="submit" class="add-form-btn">Add Staff</button>
+                                <button onclick="resetform()" class="add-form-btn">Reset</button>
+                            </div>
+                        </div>
+                       
+                    </form>
+                </div>
+            </div>
+        </section>
+    </section>
+</body>
+
+</html>

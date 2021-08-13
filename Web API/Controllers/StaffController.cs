@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Authorization;
 using API.Services;
 using Microsoft.Extensions.Configuration;
 using API.Models;
-using PersistenceLayer.APIHandler;
+using Persistence.APIHandler;
 using Model.DTO;
+using System;
 
 namespace API.Controllers
 {
@@ -31,7 +32,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Staff>>> GetAllStaff()
+        public async Task<ActionResult<List<StaffWebAPI>>> GetAllStaff()
         {
             var user = this._httpContext.HttpContext.User.FindFirstValue(ClaimTypes.Name);
             var userPrivilege = this._httpContext.HttpContext.User.FindFirstValue("Type");
@@ -44,7 +45,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Staff>> GetStaff(int id)
+        public async Task<ActionResult<StaffWebAPI>> GetStaff(int id)
         {
             var user = this._httpContext.HttpContext.User.FindFirstValue(ClaimTypes.Name);
 
@@ -88,6 +89,7 @@ namespace API.Controllers
             }
             SQLProcedure pro = new SQLProcedure(this._config);
             var staff = await pro.GetDataOfId(id);
+
             if (staff != null)
             {
                 await pro.Update(id, staffDTO);

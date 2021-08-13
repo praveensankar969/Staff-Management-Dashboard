@@ -13,7 +13,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
   <ItemGroup>
-  <Compile Include="..\Persistence Layer\WebAPIHandler.cs" Link="SQLProcedure.cs" />
+  <Compile Include="..\Persistence\WebAPIHandler.cs" Link="SQLProcedure.cs" />
   <Compile Include="..\Models\Staff.cs" Link="Staff.cs" />
   <Compile Include="..\Models\LoginDTO.cs" Link="LoginDTO.cs" />
   <Compile Include="..\Models\StaffUpdateDTO.cs" Link="StaffUpdateDTO.cs" />
