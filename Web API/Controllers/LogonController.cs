@@ -7,12 +7,18 @@ using API.Models;
 using Model.DTO;
 using Persistence.APIHandler;
 
-public class Token{
-    public string token;
-}
-
 namespace API.Controllers
 {
+
+    public class Token
+    {
+        public string token;
+
+        public Token(string token)
+        {
+            this.token = token;
+        }
+    }
     [ApiController]
     [Route("api/[controller]")]
     [AllowAnonymous]
@@ -30,7 +36,7 @@ namespace API.Controllers
         }
 
         [HttpPost("logon")]
-        public async Task<ActionResult<Token>> Login(LoginDTO logon)
+        public async Task<ActionResult<string>> Login(LoginDTO logon)
         {
             SQLProcedure pro = new SQLProcedure(this._config);
             var user = await pro.Login(logon);
@@ -46,7 +52,7 @@ namespace API.Controllers
                     UserName = logon.UserName,
                     Type = user.Type
                 };
-                return new Token {token = tokenService.CreateToken(tokenObj)};
+                return tokenService.CreateToken(tokenObj);
             }
         }
 
