@@ -45,8 +45,10 @@ export class StaffTableComponent implements OnInit {
 
   DeletedSelected() {
     for (let index = 0; index < this.selectedRows.length; index++) {
-      this.DeleteStaff(this.selectedRows[index]);
+      this.selectedRows = this.selectedRows.filter(x=> x != this.selectedRows[index]);
+      this.staffService.DeleteStaff(this.selectedRows[index]);
     }
+    this.Fetch();
   }
 
   DeleteStaff(id: number) {
