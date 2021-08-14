@@ -9,6 +9,7 @@ import { Staff } from './Modals/Staff';
 })
 export class StaffService {
 
+  
   private subject = new BehaviorSubject<Staff[]>([]);
   obs = this.subject.asObservable();
 
@@ -16,9 +17,16 @@ export class StaffService {
   }
 
   async GetAllStaff() {
-    await this.http.FetchAllStaff().pipe(map(res=> res.sort((a,b)=> a.id - b.id))).subscribe(res=> this.subject.next(res));
+    await this.http.FetchAllStaff().pipe(map(res=> res.sort((a,b)=> a.id - b.id))).
+      subscribe(res=> {this.subject.next(res)});
   }
 
-
+  DeleteStaff(id : number){
+    this.http.DeleteStaff(id).subscribe(res=> console.log("Delete Success"));
+    this.subject.next(this.subject.getValue().filter(x=> x.id != id));   
+    this.GetAllStaff();
+  }
 
 }
+//edit button
+// delete from middle page

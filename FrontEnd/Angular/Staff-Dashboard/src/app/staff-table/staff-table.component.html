@@ -19,17 +19,17 @@
                 <a (click) ="TypeSelected($event)" class="type-item" >Support</a>
             </div>
         </div>
-        <button class='table-header-btn' *ngIf="selectedRows.length>1">
+        <button class='table-header-btn' *ngIf="selectedRows.length>1" (click)="DeletedSelected()">
             <i id='icon' class='material-icons filter'>delete</i>
         </button>
-        <button class='table-header-btn' *ngIf="filtered" >
+        <button class='table-header-btn' *ngIf="filtered" (click)="ClearFilter()">
             <i id='icon' class='material-icons filter'>clear</i>
         </button>
     </th>
     <th class="table-head"> </th>
     <tbody id="table-body">
-        <tr class="tr-class" *ngFor="let item of (staffsObs | async); ">
-            <td><input type='checkbox' class='checkbox' id={{item.id}} (click)= "CheckboxSelected($event)"></td>
+        <tr class="tr-class" *ngFor="let item of (staffsObs | async)!.slice(this.prevIndex, this.nextIndex)">
+            <td><input #checkbox type='checkbox' class='checkbox' id={{item.id}} (click)= "CheckboxSelected($event)"></td>
             <td class="td-class">{{item.id}}</td>
             <td class="td-class">{{item.userName}}</td>
             <td class="td-class">{{item.password}}</td>
@@ -40,9 +40,9 @@
             <td class="td-class">{{item.type}}</td>
             <td class="td-class">
                 <button class='table-header-btn'>
-                    <i id='icon' class='material-icons filter'>edit</i>
+                    <i id='icon' class='material-icons filter' (click)="EditInline()">edit</i>
                 </button>
-                <button class='table-header-btn' *ngIf="selectedRows.length<2">
+                <button class='table-header-btn' *ngIf="checkbox.checked && selectedRows.length<2" (click)="DeleteStaff(item.id)">
                     <i id='icon' class='material-icons filter'>delete</i>
                 </button>
             </td>

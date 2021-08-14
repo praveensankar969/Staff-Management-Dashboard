@@ -113,7 +113,7 @@ namespace API.Controllers
             }
             SQLProcedure pro = new SQLProcedure(this._config);
             await pro.DeleteDataOfId(id);
-            return Ok("Delete success");
+            return Ok();
         }
 
     }

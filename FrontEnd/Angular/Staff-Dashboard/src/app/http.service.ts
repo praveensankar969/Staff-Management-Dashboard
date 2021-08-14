@@ -19,10 +19,16 @@ export class HttpService {
   }
 
   Login(username : string, password : string) {
-    this.http.post<Login>("https://localhost:5001/api/account/logon", {userName : username, password : password}).pipe(catchError(err=> {return throwError(err)})).subscribe(res=> {localStorage.setItem("TOKEN", res.token)});  
+    this.http.post<Login>("https://localhost:5001/api/account/logon", {userName : username, password : password}).
+      pipe(catchError(err=> {return throwError(err)})).
+        subscribe(res=> {localStorage.setItem("TOKEN", res.token)});  
   }
 
   FetchAllStaff() {
-    return this.http.get<Staff[]>("https://localhost:5001/api/staff").pipe(shareReplay());
+    return this.http.get<Staff[]>("https://localhost:5001/api/staff").pipe(catchError(err=> {return throwError(err)}));
+  }
+
+  DeleteStaff(id: number){
+    return this.http.delete("https://localhost:5001/api/staff/"+id).pipe(catchError(err=> {return throwError(err)}));
   }
 }
