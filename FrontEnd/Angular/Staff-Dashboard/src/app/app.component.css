@@ -11,7 +11,7 @@
 
 .brand-name{
     color:inherit;
-    font-size: 2em;
+    font-size: 1.5em;
     padding : 1em;
     cursor: pointer;
 }
@@ -28,7 +28,7 @@
 .navbar-link-add{
     text-decoration: none;
     color:inherit; 
-    font-size: 1.5em;
+    font-size: 1.2em;
     padding :0.6em;
 }
 
