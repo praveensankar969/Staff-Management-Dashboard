@@ -26,7 +26,7 @@ export class StaffTableComponent implements OnInit {
   ngOnInit(): void {
     this.staffService.GetAllStaff();
     this.Fetch();
-  }
+  }  
 
   Fetch() {
     this.staffsObs = this.staffService.obs.pipe(tap(res => this.total = res.length));
@@ -44,17 +44,34 @@ export class StaffTableComponent implements OnInit {
   }
 
   DeletedSelected() {
-    for (let index = 0; index < this.selectedRows.length; index++) {
-      this.selectedRows = this.selectedRows.filter(x=> x != this.selectedRows[index]);
-      this.staffService.DeleteStaff(this.selectedRows[index]);
+    var choice = "";
+    if (confirm("Are you sure you want to delete this staff?")) {
+      choice = "ok";
+    } else {
+      choice = "cancel";
     }
-    this.Fetch();
+    if(choice == "ok"){
+      for (let index = 0; index < this.selectedRows.length; index++) {
+        this.staffService.DeleteStaff(this.selectedRows[index]);
+      }
+      this.selectedRows= [];
+      this.staffService.GetAllStaff();
+    } 
   }
 
   DeleteStaff(id: number) {
-    this.selectedRows = this.selectedRows.filter(x=> x != id);
-    this.staffService.DeleteStaff(id);
-    this.Fetch();
+    var choice = "";
+    if (confirm("Are you sure you want to delete this staff?")) {
+      choice = "ok";
+    } else {
+      choice = "cancel";
+    }
+    if(choice == "ok"){
+      this.selectedRows = this.selectedRows.filter(x=> x != id);
+      this.staffService.DeleteStaff(id);
+      this.staffService.GetAllStaff();
+    }
+    
   }
 
   TypeSelected(event: Event) {

@@ -16,17 +16,14 @@ export class StaffService {
   constructor(private http: HttpService) {
   }
 
-  async GetAllStaff() {
-    await this.http.FetchAllStaff().pipe(map(res=> res.sort((a,b)=> a.id - b.id))).
+  GetAllStaff() {
+    this.http.FetchAllStaff().pipe(map(res=> res.sort((a,b)=> a.id - b.id))).
       subscribe(res=> {this.subject.next(res)});
   }
 
   DeleteStaff(id : number){
+    this.subject.next(this.subject.getValue().filter(x=> x.id != id));
     this.http.DeleteStaff(id).subscribe(res=> console.log("Delete Success"));
-    this.subject.next(this.subject.getValue().filter(x=> x.id != id));   
-    this.GetAllStaff();
   }
 
 }
-//edit button
-// delete from middle page
