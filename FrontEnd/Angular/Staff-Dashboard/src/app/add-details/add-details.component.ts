@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, NgForm, NgModel } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { NgForm, NgModel } from '@angular/forms';
 import { Staff } from '../Modals/Staff';
+import { StaffAdd } from '../Modals/StaffAdd';
 import { StaffService } from '../staff.service';
 
 @Component({
-  selector: 'app-edit-details',
-  templateUrl: './edit-details.component.html',
-  styleUrls: ['./edit-details.component.css']
+  selector: 'app-add-details',
+  templateUrl: './add-details.component.html',
+  styleUrls: ['./add-details.component.css']
 })
-export class EditDetailsComponent implements OnInit {
+export class AddDetailsComponent implements OnInit {
 
   nameTxt = "Username is required";
   passTxt = "Password is required";
@@ -17,23 +17,39 @@ export class EditDetailsComponent implements OnInit {
   expTxt = "Experience is required";
   subTxt = "Subject is required";
   phnTxt = "Phone number is required";
-  id: number = -1;
-  staff: Staff | null = null;
-  allStaffs: Staff[] = [];
-  constructor(public staffService: StaffService, private route: ActivatedRoute) {
-    this.route.params.subscribe(res => this.id = res['id']);
-  }
+  userName: string = "";
+  password = "";
+  experience = 0;
+  dateOfJoining = "";
+  subject = "";
+  phone= "";
+  type = "Teacher";
 
-  ngOnInit() {
-    this.staffService.GetStaff(this.id).subscribe(res => this.staff = res);
+
+  allStaffs: Staff[] = [];
+  constructor(public staffService: StaffService) { }
+
+  ngOnInit(): void {
     this.staffService.obs.subscribe(res => this.allStaffs = res);
   }
 
-  EditData(form: NgForm) {
-    if (!form.pristine) {
-      this.staffService.UpdateStaff(this.staff!);
-    }
+  AddData(){
+    var staff : StaffAdd = {
+      userName : this.userName,
+      password : this.password,
+      experience : this.experience,
+      dateOfJoining : new Date(this.dateOfJoining),
+      subject : this.subject,
+      phoneNumber : this.phone.toString(),
+      type : this.type
+    };
+    this.staffService.AddStaff(staff);
   }
+
+  TypeUpdate(event : Event){
+    this.type = (event.target as HTMLSelectElement).value;
+  }
+
 
   ValidateField(field: NgModel) {
     if (!field.pristine) {
@@ -56,7 +72,7 @@ export class EditDetailsComponent implements OnInit {
             this.passTxt = "Password is required";
             return false;
           }
-          if(this.staff!.password.length<4){
+          if(field.value.length<4){
             this.passTxt = "Password should be minimum 4 characters";
             return false;
           }
@@ -65,9 +81,8 @@ export class EditDetailsComponent implements OnInit {
           }
         }
         case "date":{
-          var date = new Date(this.staff!.dateOfJoining);
           var today = new Date();
-          if(date > today){
+          if(field.value > today){
             if(!field.valid){
               this.dateTxt = "Date of joining is required";
               return false;
@@ -80,7 +95,7 @@ export class EditDetailsComponent implements OnInit {
           }
         }
         case "experience":{
-          if(this.staff!.experience>30){
+          if(field.value>30){
             if(!field.valid){
               this.expTxt = "Experience is required";
               return false;
@@ -116,5 +131,3 @@ export class EditDetailsComponent implements OnInit {
   }
 
 }
-
-

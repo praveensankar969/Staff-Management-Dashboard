@@ -4,6 +4,7 @@ import { Login } from './Modals/Login';
 import { Staff } from './Modals/Staff';
 import { catchError, shareReplay, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { StaffAdd } from './Modals/StaffAdd';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,9 @@ export class HttpService {
 
   UpdateStaffDetail(staff : Staff){
     return this.http.put("https://localhost:5001/api/staff/"+staff.id, staff).pipe(catchError(err=> {return throwError(err)}));
+  }
+
+  AddStaffDetail(staff : StaffAdd){
+    return this.http.post("https://localhost:5001/api/staff/addstaff", staff).pipe(catchError(err=> {return throwError(err)}));
   }
 }

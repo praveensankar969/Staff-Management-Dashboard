@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpService } from './http.service';
 import { Staff } from './Modals/Staff';
+import { StaffAdd } from './Modals/StaffAdd';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,15 @@ export class StaffService {
     var index = staffs.findIndex(x=> x.id == staff.id);
     staffs[index] = staff;
     console.log(staffs)
+    this.subject.next(staffs);
+    this.GetAllStaff();
+  }
+
+  AddStaff(staff : StaffAdd){
+    this.http.AddStaffDetail(staff).subscribe(res=> console.log("Data add success"));
+    var staffs = this.subject.getValue();
+    var newstaff = {...staff, id:0}
+    staffs.push(newstaff);
     this.subject.next(staffs);
     this.GetAllStaff();
   }

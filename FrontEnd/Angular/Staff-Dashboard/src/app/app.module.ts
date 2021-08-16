@@ -10,13 +10,15 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { HttpInterceptService } from './http-intercept.service';
 import { EditDetailsComponent } from './edit-details/edit-details.component';
 import { CommonModule } from '@angular/common';
+import { AddDetailsComponent } from './add-details/add-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     StaffTableComponent,
-    EditDetailsComponent
+    EditDetailsComponent,
+    AddDetailsComponent
   ],
   imports: [
     BrowserModule,
