@@ -61,7 +61,7 @@ namespace API.Controllers
             }
             else
             {
-                return NotFound("No Such Staff");
+                return NotFound();
             }
 
         }
@@ -74,7 +74,7 @@ namespace API.Controllers
             SQLProcedure pro = new SQLProcedure(this._config);
             int res = await pro.Insert(staff);
 
-            return Ok("Data added");
+            return Ok();
 
         }
 
@@ -94,11 +94,11 @@ namespace API.Controllers
             {
                 await pro.Update(id, staffDTO);
 
-                return Ok("Update Success");
+                return Ok();
             }
             else
             {
-                return BadRequest("No Such Staff");
+                return NotFound();
             }
         }
 
