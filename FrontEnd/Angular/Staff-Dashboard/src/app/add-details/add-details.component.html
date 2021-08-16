@@ -15,16 +15,16 @@
         <div class="form-section">
             <div class="add-form-subsection">
                 <label for="">Username:</label>
-                <input id="username" class="add-form-input" type="text" name="name" required
-                    [(ngModel)]="userName" #name="ngModel">
+                <input id="username" class="add-form-input" type="text" name="name" required [(ngModel)]="userName"
+                    #name="ngModel">
                 <div [hidden]="ValidateField(name)" class="alert-danger">
                     {{nameTxt}}
                 </div>
             </div>
             <div class="add-form-subsection">
                 <label for="">Password:</label>
-                <input id="password" class="add-form-input" type="text" required name="password"
-                    [(ngModel)]="password" #pass="ngModel">
+                <input id="password" class="add-form-input" type="text" required name="password" [(ngModel)]="password"
+                    #pass="ngModel">
                 <div [hidden]="ValidateField(pass)" class="alert-danger">
                     {{passTxt}}
                 </div>
@@ -51,16 +51,16 @@
         <div class="form-section">
             <div class="add-form-subsection">
                 <label for="">Subject:</label>
-                <input id="subject" class="add-form-input" type="text" required name="subject"
-                    [(ngModel)]="subject" #sub="ngModel">
+                <input id="subject" class="add-form-input" type="text" required name="subject" [(ngModel)]="subject"
+                    #sub="ngModel">
                 <div [hidden]="sub.valid || sub.pristine" class="alert-danger">
                     Subject is required
                 </div>
             </div>
             <div class="add-form-subsection">
                 <label for="">Phone Number:</label>
-                <input id="phone" class="add-form-input" type="number" required name="phone"
-                    [(ngModel)]="phone" #phn="ngModel">
+                <input id="phone" class="add-form-input" type="number" required name="phone" [(ngModel)]="phone"
+                    #phn="ngModel">
                 <div [hidden]="ValidateField(phn)" class="alert-danger">
                     {{phnTxt}}
                 </div>
@@ -68,9 +68,33 @@
         </div>
         <div class="form-section">
             <div class="add-form-subsection">
-                <button type="submit" class="add-form-btn" [disabled]="!form.form.valid" (click)="AddData()">Add Staff</button>
-                <button class="add-form-btn" type="reset">Reset</button>
+                <button type="submit" class="add-form-btn" [disabled]="!form.form.valid || dataAdded" (click)="AddData(form)">Add
+                    Staff</button>
+                <button class="add-form-btn" (click)="Reset(form)">Reset</button>
             </div>
         </div>
     </form>
+</div>
+
+<div class="data-section" *ngIf="dataAdded">
+    <table id="staff">
+        <tr>
+            <th class="head">UserName </th>
+            <th class="head">Password</th>
+            <th class="head">DateofJoining</th>
+            <th class="head">Experience</th>
+            <th class="head">Subject</th>
+            <th class="head">Phone</th>
+            <th class="head">Type</th>
+        </tr>
+        <tr>
+            <td class="t-data">{{userName}}</td>
+            <td class="t-data">{{password}}</td>
+            <td class="t-data">{{dateOfJoining}}</td>
+            <td class="t-data">{{experience}}</td>
+            <td class="t-data">{{subject}}</td>
+            <td class="t-data">{{phone}}</td>
+            <td class="t-data">{{type}}</td>
+        </tr>
+    </table>
 </div>

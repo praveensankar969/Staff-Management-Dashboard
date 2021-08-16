@@ -26,7 +26,6 @@ form {
     font-size: 20px;
     margin: 3px;
     font-family: 'gilroy-bold';
-    
 }
 
 .add-form-subsection {
@@ -78,22 +77,56 @@ select {
     font-size: 25px;
 }
 
-.ng-valid[required], .ng-valid.required  {
-    border-left: 5px solid #42A948; 
+.ng-valid[required], .ng-valid.required {
+    border-left: 5px solid #42A948;
 }
 
-.ng-invalid[required].ng-touched{
+.ng-invalid[required].ng-touched {
     border-left: 5px solid #a94442;
 }
 
-.alert-danger{
-    color:red;
+.alert-danger {
+    color: red;
     font-size: 16px;
-    border : 1px solid #a94442;
+    border: 1px solid #a94442;
     text-align: center;
 }
 
-button:disabled, button[disabled]{
+button:disabled, button[disabled] {
     background-color: rgb(180, 214, 204) !important;
-    color : rgba(163, 163, 163, 0.753) !important;
+    color: rgba(163, 163, 163, 0.753) !important;
+}
+
+.data-section {
+    margin: auto;
+    text-align: center;
+    margin-top: 120px;
+}
+
+#staff {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+    margin: auto;
+}
+
+#staff td, #staff th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#staff tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#staff tr:hover {
+    background-color: #ddd;
+}
+
+#staff th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
 }

@@ -24,6 +24,8 @@ export class AddDetailsComponent implements OnInit {
   subject = "";
   phone= "";
   type = "Teacher";
+  dataAdded = false;
+
 
 
   allStaffs: Staff[] = [];
@@ -33,7 +35,7 @@ export class AddDetailsComponent implements OnInit {
     this.staffService.obs.subscribe(res => this.allStaffs = res);
   }
 
-  AddData(){
+  AddData(form: NgForm){
     var staff : StaffAdd = {
       userName : this.userName,
       password : this.password,
@@ -43,11 +45,17 @@ export class AddDetailsComponent implements OnInit {
       phoneNumber : this.phone.toString(),
       type : this.type
     };
-    this.staffService.AddStaff(staff);
+    this.staffService.AddStaff(staff);  
+    this.dataAdded = true;
   }
 
   TypeUpdate(event : Event){
     this.type = (event.target as HTMLSelectElement).value;
+  }
+
+  Reset(form : NgForm){
+    this.dataAdded = false;
+    form.resetForm(); 
   }
 
 
