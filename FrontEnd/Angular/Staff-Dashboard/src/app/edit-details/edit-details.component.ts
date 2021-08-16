@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, NgForm, NgModel } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Staff } from '../Modals/Staff';
 import { StaffService } from '../staff.service';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-edit-details',
@@ -20,12 +22,12 @@ export class EditDetailsComponent implements OnInit {
   id: number = -1;
   staff: Staff | null = null;
   allStaffs: Staff[] = [];
-  constructor(public staffService: StaffService, private route: ActivatedRoute) {
+  constructor(public staffService: StaffService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(res => this.id = res['id']);
   }
 
   ngOnInit() {
-    this.staffService.GetStaff(this.id).subscribe(res => this.staff = res);
+    this.staffService.GetStaff(this.id).pipe(catchError(err=>{ this.router.navigate(["/notfound"]) ;return throwError(err)})).subscribe(res => {this.staff = res;});
     this.staffService.obs.subscribe(res => this.allStaffs = res);
   }
 
