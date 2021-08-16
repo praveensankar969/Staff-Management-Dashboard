@@ -15,8 +15,16 @@ table {
 }
 
 .staffs-table {
-    border: 2px solid white;
+    border: 2px solid rgb(189, 187, 187);
     border-radius: 5px;
+}
+
+.staffs-table tr:hover {
+    background-color: #ddd;
+}
+
+.staffs-table td, .staffs-table th{
+    border: 1px solid rgb(170, 168, 168);
 }
 
 .table-head {
@@ -28,9 +36,6 @@ table {
     height: 50px;
 }
 
-tr {
-    border-bottom: 1pt solid rgba(255, 255, 255, 0.664);
-}
 
 .tr-class:hover {
     background-color: rgba(255, 255, 255, 0.616);
@@ -38,8 +43,7 @@ tr {
 }
 
 td{
-    padding : 8px;
-    
+    padding : 8px;  
 }
 
 .td-class {
