@@ -10,7 +10,7 @@ html {
 body {
     margin: 0px;
     padding : 0px;
-    color: white;
-    background-color: rgba(2, 17, 14);
+    color: black;
+    background-color: rgb(255, 255, 255);
     font-size: 1.2rem;
 }

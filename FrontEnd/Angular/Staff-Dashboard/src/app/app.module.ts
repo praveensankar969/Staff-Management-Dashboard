@@ -8,18 +8,22 @@ import { HomeComponent } from './home/home.component';
 import { StaffTableComponent } from './staff-table/staff-table.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { HttpInterceptService } from './http-intercept.service';
+import { EditDetailsComponent } from './edit-details/edit-details.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    StaffTableComponent
+    StaffTableComponent,
+    EditDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [{
     provide :  HTTP_INTERCEPTORS,

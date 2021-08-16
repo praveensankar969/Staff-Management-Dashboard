@@ -3,10 +3,12 @@
 }
 
 .navbar{
-    width: 90%;
+    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.842);
+    color : white;
 }
 
 .brand-name{
@@ -29,13 +31,14 @@
     text-decoration: none;
     color:inherit; 
     font-size: 1.2em;
-    padding :0.6em;
+    margin : 1em;
+    padding :0.4em;
 }
 
 .navbar-link-add:hover{
-    background-color: white;
-    color: black;
-    transform: scale(1.05);
+    background-color: grey;
+    color: white;
+    transform: scale(1.03);
     
     border-radius: 10px;
 }

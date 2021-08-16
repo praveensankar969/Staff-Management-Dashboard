@@ -31,4 +31,12 @@ export class HttpService {
   DeleteStaff(id: number){
     return this.http.delete("https://localhost:5001/api/staff/"+id).pipe(catchError(err=> {return throwError(err)}));
   }
+
+  FetchStaff(id: number){
+    return this.http.get<Staff>("https://localhost:5001/api/staff/"+id).pipe(catchError(err=> {return throwError(err)}));
+  }
+
+  UpdateStaffDetail(staff : Staff){
+    return this.http.put("https://localhost:5001/api/staff/"+staff.id, staff).pipe(catchError(err=> {return throwError(err)}));
+  }
 }

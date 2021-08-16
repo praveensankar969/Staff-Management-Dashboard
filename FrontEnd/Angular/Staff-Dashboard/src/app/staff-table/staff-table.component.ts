@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, Observer } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Staff } from '../Modals/Staff';
@@ -21,10 +22,9 @@ export class StaffTableComponent implements OnInit {
   typeSelected: string = "";
   filtered = false;
 
-  constructor(public staffService: StaffService) { }
+  constructor(public staffService: StaffService, private router : Router) { }
 
   ngOnInit(): void {
-    this.staffService.GetAllStaff();
     this.Fetch();
   }  
 
@@ -91,8 +91,8 @@ export class StaffTableComponent implements OnInit {
     this.Fetch();
   }
 
-  EditInline(){
-    console.log("Edit page");
+  EditInline(id: number){
+    this.router.navigate(["edit", id]);
   }
 
 

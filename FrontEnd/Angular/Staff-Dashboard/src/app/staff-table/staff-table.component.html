@@ -44,7 +44,7 @@
                     <td class="td-class">{{item.type}}</td>
                     <td class="td-class">
                         <button class='table-header-btn'>
-                            <i id='icon' class='material-icons filter' (click)="EditInline()">edit</i>
+                            <i id='icon' class='material-icons filter' (click)="EditInline(item.id)">edit</i>
                         </button>
                         <button class='table-header-btn' *ngIf="checkbox.checked && selectedRows.length<2"
                             (click)="DeleteStaff(item.id)">
