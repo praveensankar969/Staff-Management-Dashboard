@@ -11,6 +11,7 @@ import { HttpInterceptService } from './http-intercept.service';
 import { EditDetailsComponent } from './edit-details/edit-details.component';
 import { CommonModule } from '@angular/common';
 import { AddDetailsComponent } from './add-details/add-details.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AddDetailsComponent } from './add-details/add-details.component';
     HomeComponent,
     StaffTableComponent,
     EditDetailsComponent,
-    AddDetailsComponent
+    AddDetailsComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
