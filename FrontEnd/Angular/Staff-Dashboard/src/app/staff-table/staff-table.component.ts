@@ -21,12 +21,14 @@ export class StaffTableComponent implements OnInit {
   selectedRows: number[] = [];
   typeSelected: string = "";
   filtered = false;
+  idIcon = "south";
+  nameIcon = "south";
 
-  constructor(public staffService: StaffService, private router : Router) { }
+  constructor(public staffService: StaffService, private router: Router) { }
 
   ngOnInit(): void {
     this.Fetch();
-  }  
+  }
 
   Fetch() {
     this.staffsObs = this.staffService.obs.pipe(tap(res => this.total = res.length));
@@ -43,6 +45,57 @@ export class StaffTableComponent implements OnInit {
     }
   }
 
+  SortId() {
+    if (this.filtered) {
+      if (this.idIcon == "south") {
+        this.idIcon = "north";
+        this.staffsObs = this.staffService.obs.pipe(map(res => res.filter(x => x.type == this.typeSelected).
+          sort((a, b) => b.id - a.id)));
+      }
+      else {
+        this.idIcon = "south";
+        this.staffsObs = this.staffService.obs.pipe(map(res => res.filter(x => x.type == this.typeSelected).
+          sort((a, b) => a.id - b.id)));
+      }
+    }
+    else {
+      if (this.idIcon == "south") {
+        this.idIcon = "north";
+        this.staffsObs = this.staffService.obs.pipe(map(res => res.sort((a, b) => b.id - a.id)));
+      }
+      else {
+        this.idIcon = "south";
+        this.staffsObs = this.staffService.obs.pipe(map(res => res.sort((a, b) => a.id - b.id)));
+      }
+    }
+
+  }
+
+  SortName() {
+    if (this.filtered) {
+      if (this.nameIcon == "south") {
+        this.nameIcon = "north";
+        this.staffsObs = this.staffService.obs.pipe(map(res => res.filter(x => x.type == this.typeSelected).
+          sort((a, b) => a.userName.localeCompare(b.userName))));
+      }
+      else {
+        this.nameIcon = "south";
+        this.staffsObs = this.staffService.obs.pipe(map(res => res.filter(x => x.type == this.typeSelected).
+          sort((a, b) => b.userName.localeCompare(a.userName))));
+      }
+    }
+    else {
+      if (this.nameIcon == "south") {
+        this.nameIcon = "north";
+        this.staffsObs = this.staffService.obs.pipe(map(res => res.sort((a, b) => b.id - a.id)));
+      }
+      else {
+        this.nameIcon = "south";
+        this.staffsObs = this.staffService.obs.pipe(map(res => res.sort((a, b) => a.id - b.id)));
+      }
+    }
+  }
+
   DeletedSelected() {
     var choice = "";
     if (confirm("Are you sure you want to delete this staff?")) {
@@ -50,13 +103,13 @@ export class StaffTableComponent implements OnInit {
     } else {
       choice = "cancel";
     }
-    if(choice == "ok"){
+    if (choice == "ok") {
       for (let index = 0; index < this.selectedRows.length; index++) {
         this.staffService.DeleteStaff(this.selectedRows[index]);
       }
-      this.selectedRows= [];
+      this.selectedRows = [];
       this.staffService.GetAllStaff();
-    } 
+    }
   }
 
   DeleteStaff(id: number) {
@@ -66,12 +119,12 @@ export class StaffTableComponent implements OnInit {
     } else {
       choice = "cancel";
     }
-    if(choice == "ok"){
-      this.selectedRows = this.selectedRows.filter(x=> x != id);
+    if (choice == "ok") {
+      this.selectedRows = this.selectedRows.filter(x => x != id);
       this.staffService.DeleteStaff(id);
       this.staffService.GetAllStaff();
     }
-    
+
   }
 
   TypeSelected(event: Event) {
@@ -85,13 +138,14 @@ export class StaffTableComponent implements OnInit {
   }
 
   ClearFilter() {
+    this.toggleDropdown = !this.toggleDropdown
     this.filtered = false;
     this.prevIndex = 0;
     this.nextIndex = this.perPage;
     this.Fetch();
   }
 
-  EditInline(id: number){
+  EditInline(id: number) {
     this.router.navigate(["edit", id]);
   }
 

@@ -114,3 +114,10 @@ button:disabled, button[disabled]{
     background-color: rgb(180, 214, 204) !important;
     color : rgba(163, 163, 163, 0.753) !important;
 }
+
+.filter-btn{
+    font-size: 1.3rem;
+    font-family: 'gilroy-bold';
+    font-weight: bold;
+    margin: 5px;
+}

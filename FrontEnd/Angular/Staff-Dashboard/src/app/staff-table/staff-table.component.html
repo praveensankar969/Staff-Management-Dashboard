@@ -2,8 +2,16 @@
     <div class="list-staff-table">
         <table class="staffs-table">
             <th class="table-head"></th>
-            <th class="table-head">Id</th>
-            <th class="table-head">User Name</th>
+            <th class="table-head">
+                <button class="filter-btn" (click)="SortId()">Id
+                    <i id='icon' class='material-icons filter'>{{idIcon}}</i>
+                </button>
+            </th>
+            <th class="table-head"> 
+                <button class="filter-btn" (click)="SortName()">Username
+                    <i id='icon' class='material-icons filter'>{{nameIcon}}</i>
+                </button>
+            </th>
             <th class="table-head">Password</th>
             <th class="table-head">Date Of Joining</th>
             <th class="table-head">Experience</th>
