@@ -1,0 +1,9 @@
+CREATE PROCEDURE dbo.DeleteMultiple
+  @List AS dbo.IdList READONLY
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  SELECT Id FROM @List; 
+END
+GO
