@@ -12,6 +12,7 @@ import { EditDetailsComponent } from './edit-details/edit-details.component';
 import { CommonModule } from '@angular/common';
 import { AddDetailsComponent } from './add-details/add-details.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     StaffTableComponent,
     EditDetailsComponent,
     AddDetailsComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,19 @@
+<div class="login">
+    <div class="header">
+        <h2>Login</h2>
+    </div>
+    <form class="login-form" #form="ngForm">
+        <div class="field">
+            <label class="label">Enter Username: </label>
+            <input type="text" required [(ngModel)]="username" name="name">
+        </div>
+        <div class="field">
+            <label class="label">Enter Password:</label>
+            <input type="password" required [(ngModel)]="password" name="pass">
+        </div>
+        <div class="field">
+            <button class="btn" (click)="Login()" [disabled]="!form.form.valid">Login</button>
+            <p class="error" *ngIf="error"> Wrong username or password</p>
+        </div>
+    </form>
+</div>

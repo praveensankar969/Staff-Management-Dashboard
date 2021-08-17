@@ -14,15 +14,11 @@ export class HttpService {
 
   constructor(private http: HttpClient) {
 
-    //if (localStorage.getItem("TOKEN") == null) {
-      //this.Login("Praveen Sankar", "new password");
-    //}
   }
 
   Login(username : string, password : string) {
-    this.http.post<Login>("https://localhost:5001/api/account/logon", {userName : username, password : password}).
-      pipe(catchError(err=> {return throwError(err)})).
-        subscribe(res=> {localStorage.setItem("TOKEN", res.token)});  
+    return this.http.post<Login>("https://localhost:5001/api/account/logon", {userName : username, password : password}).
+      pipe(catchError(err=> {return throwError(err)})); 
   }
 
   FetchAllStaff() {

@@ -24,7 +24,9 @@ export class StaffTableComponent implements OnInit {
   idIcon = "south";
   nameIcon = "south";
 
-  constructor(public staffService: StaffService, private router: Router) { }
+  constructor(public staffService: StaffService, private router: Router) { 
+    this.staffService.GetAllStaff();
+  }
 
   ngOnInit(): void {
     this.Fetch();
@@ -138,7 +140,9 @@ export class StaffTableComponent implements OnInit {
   }
 
   ClearFilter() {
-    this.toggleDropdown = !this.toggleDropdown
+    if(this.toggleDropdown){
+      this.toggleDropdown = !this.toggleDropdown;
+    }
     this.filtered = false;
     this.prevIndex = 0;
     this.nextIndex = this.perPage;

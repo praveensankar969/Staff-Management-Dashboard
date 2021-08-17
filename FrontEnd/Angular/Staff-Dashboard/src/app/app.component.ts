@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { StaffService } from './staff.service';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,21 @@ import { StaffService } from './staff.service';
 })
 export class AppComponent {
   title = 'Staff-Dashboard';
+  constructor(public loginService: LoginService) {
 
-  constructor(private staffService : StaffService) {
-    this.staffService.GetAllStaff();
+    if (localStorage.getItem("TOKEN") == null) {
+      this.loginService.Logout();
+    }
+    else {
+      this.loginService.Login();
+    }
+
   }
+
+  Logout() {
+    localStorage.removeItem("TOKEN");
+    this.loginService.Logout();
+  }
+
+
 }

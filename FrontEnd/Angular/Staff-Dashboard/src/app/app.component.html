@@ -2,6 +2,10 @@
   <a class="navbar-link" href="/">
     <div class="brand-name">Staff Management Dashboard</div>
   </a>
-  <a class="navbar-link-add" href="/add-staff">Add Staff</a>
+  <div>
+    <a class="navbar-link-add" href="/add-staff" *ngIf="loginService.Isloggedin()">Add Staff</a>
+    <a class="navbar-link-add" href="/login" *ngIf="!loginService.Isloggedin()">Login</a>
+    <a class="navbar-link-add" href="/login" *ngIf="loginService.Isloggedin()" (click)="Logout()">Logout</a>
+  </div>
 </div>
 <router-outlet></router-outlet>
