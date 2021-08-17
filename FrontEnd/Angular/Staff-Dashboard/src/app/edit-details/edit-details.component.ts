@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Staff } from '../Modals/Staff';
 import { StaffService } from '../staff.service';
 import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { Subscription, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-edit-details',
@@ -22,6 +22,8 @@ export class EditDetailsComponent implements OnInit {
   id: number = -1;
   staff: Staff | null = null;
   allStaffs: Staff[] = [];
+  subscription! : Subscription;
+
   constructor(public staffService: StaffService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(res => this.id = res['id']);
   }
@@ -31,13 +33,14 @@ export class EditDetailsComponent implements OnInit {
       pipe(catchError(err=>{ this.router.navigate(["/notfound"]);
                               return throwError(err)}))
                                 .subscribe(res => {this.staff = res;});
-    this.staffService.GetAllStaff().subscribe(res => this.allStaffs = res);
+    this.subscription = this.staffService.GetAllStaff().subscribe(res => this.allStaffs = res);
   }
 
   EditData(form: NgForm) {
     if (!form.pristine) {
       this.staffService.UpdateStaff(this.staff!).subscribe(res=> console.log("Update success"));
     }
+    this.router.navigate(["/"]);
   }
 
   ValidateField(field: NgModel) {
@@ -118,6 +121,10 @@ export class EditDetailsComponent implements OnInit {
     else {
       return true;
     }
+  }
+  
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();  
   }
 
 }

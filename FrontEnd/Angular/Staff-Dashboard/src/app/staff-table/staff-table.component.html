@@ -17,26 +17,12 @@
             <th class="table-head">Experience</th>
             <th class="table-head">Subject</th>
             <th class="table-head">Phone Number</th>
-            <th class="table-head">
-                <div class="dropdown">
-                    <a (click)="toggleDropdown = !toggleDropdown" class="dropbtn">
-                        Type
-                        <i id='icon' class='material-icons filter'>list</i>
-                    </a>
-                    <div class="dropdown-content" [ngClass]="toggleDropdown? 'show' : ''">
-                        <a (click)="TypeSelected($event)" class="type-item">Admin</a>
-                        <a (click)="TypeSelected($event)" class="type-item">Teacher</a>
-                        <a (click)="TypeSelected($event)" class="type-item">Support</a>
-                    </div>
-                </div>
+            <th class="table-head">Type</th>
+            <th class="table-head"> 
                 <button class='table-header-btn' *ngIf="selectedRows.length>1" (click)="DeletedSelected()">
-                    <i id='icon' class='material-icons filter'>delete</i>
-                </button>
-                <button class='table-header-btn' *ngIf="filtered" (click)="ClearFilter()">
-                    <i id='icon' class='material-icons filter'>clear</i>
+                <i id='icon' class='material-icons filter'>delete</i>
                 </button>
             </th>
-            <th class="table-head"> </th>
             <tbody id="table-body">
                 <tr class="tr-class" *ngFor="let item of staffs!.slice(this.prevIndex, this.nextIndex)">
                     <td><input #checkbox type='checkbox' class='checkbox' id={{item.id}}
@@ -66,3 +52,18 @@
         <button class="btn" id="next" [disabled]="nextIndex>=total" (click)="NextPage()">Next Page</button>
     </div>
 </div>
+
+<!-- <div class="dropdown">
+    <a (click)="toggleDropdown = !toggleDropdown" class="dropbtn">
+        Type
+        <i id='icon' class='material-icons filter'>list</i>
+    </a>
+    <div class="dropdown-content" [ngClass]="toggleDropdown? 'show' : ''">
+        <a (click)="TypeSelected($event)" class="type-item">Admin</a>
+        <a (click)="TypeSelected($event)" class="type-item">Teacher</a>
+        <a (click)="TypeSelected($event)" class="type-item">Support</a>
+    </div>
+</div>
+<button class='table-header-btn' *ngIf="filtered" (click)="ClearFilter()">
+    <i id='icon' class='material-icons filter'>clear</i>
+</button> -->

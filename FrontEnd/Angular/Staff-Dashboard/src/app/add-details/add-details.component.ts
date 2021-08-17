@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Staff } from '../Modals/Staff';
 import { StaffAdd } from '../Modals/StaffAdd';
 import { StaffService } from '../staff.service';
@@ -25,13 +27,13 @@ export class AddDetailsComponent implements OnInit {
   phone= "";
   type = "Teacher";
   dataAdded = false;
-
+  subscription! : Subscription;
 
   allStaffs: Staff[] = [];
-  constructor(public staffService: StaffService) { }
+  constructor(public staffService: StaffService, private router : Router) { }
 
   ngOnInit(): void {
-    this.staffService.GetAllStaff().subscribe(res =>{this.allStaffs = res;});
+    this.subscription = this.staffService.GetAllStaff().subscribe(res =>{this.allStaffs = res;});
   }
 
   AddData(form: NgForm){
@@ -46,6 +48,7 @@ export class AddDetailsComponent implements OnInit {
     };
     this.staffService.AddStaff(staff).subscribe(res=> console.log("Data added"));  
     this.dataAdded = true;
+    this.router.navigate(["/"]);
   }
 
   TypeUpdate(event : Event){
@@ -138,6 +141,10 @@ export class AddDetailsComponent implements OnInit {
     else {
       return true;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();  
   }
 
 }

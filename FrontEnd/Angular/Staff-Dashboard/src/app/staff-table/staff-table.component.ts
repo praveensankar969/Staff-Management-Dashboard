@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Observer } from 'rxjs';
+import { Observable, Observer, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Staff } from '../Modals/Staff';
 import { StaffService } from '../staff.service';
@@ -23,6 +23,7 @@ export class StaffTableComponent implements OnInit {
   filtered = false;
   idIcon = "south";
   nameIcon = "south";
+  subscription! : Subscription;
 
   constructor(public staffService: StaffService, private router: Router) { 
     
@@ -33,7 +34,7 @@ export class StaffTableComponent implements OnInit {
   }
 
   Fetch() {
-    this.staffService.GetAllStaff().pipe(tap(res => this.total = res.length)).subscribe(res=> this.staffs = res);
+    this.subscription = this.staffService.GetAllStaff().pipe(tap(res => this.total = res.length)).subscribe(res=> this.staffs = res);
   }
 
   CheckboxSelected(event: Event) {
@@ -107,10 +108,10 @@ export class StaffTableComponent implements OnInit {
     }
     if (choice == "ok") {
       for (let index = 0; index < this.selectedRows.length; index++) {
-        this.staffService.DeleteStaff(this.selectedRows[index]).subscribe(res=> {});
-        this.staffs = this.staffs.filter(x=> x.id != this.selectedRows[index]);
+        this.staffService.DeleteStaff(this.selectedRows[index]).subscribe(res=> {
+          this.staffs = this.staffs.filter(x=> x.id != this.selectedRows[index])
+        });
       }
-      this.staffService.GetAllStaff();
     }
   }
 
@@ -125,7 +126,6 @@ export class StaffTableComponent implements OnInit {
       this.staffService.DeleteStaff(id).subscribe(res=> {
             this.selectedRows = this.selectedRows.filter(x => x != id);
             this.staffs = this.staffs.filter(x=> x.id != id)});
-      this.staffService.GetAllStaff();
     }
 
   }
@@ -163,6 +163,10 @@ export class StaffTableComponent implements OnInit {
   NextPage() {
     this.prevIndex = this.prevIndex + this.perPage;
     this.nextIndex = this.nextIndex + this.perPage;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();  
   }
 
 

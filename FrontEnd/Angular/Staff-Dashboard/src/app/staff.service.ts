@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, map, shareReplay } from 'rxjs/operators';
+import { catchError, first, map, shareReplay } from 'rxjs/operators';
 import { Staff } from './Modals/Staff';
 import { StaffAdd } from './Modals/StaffAdd';
 import { HttpClient } from '@angular/common/http';
@@ -18,26 +18,27 @@ export class StaffService {
 
   GetAllStaff() {
     return this.http.get<Staff[]>(AppSettings.API_ENDPOINT+this.ENDPOINT).pipe(catchError(err=> {return throwError(err)}), 
-        map(res=> res.sort((a,b)=> a.id - b.id)), shareReplay());
+        map(res=> res.sort((a,b)=> a.id - b.id)));
   }
 
   DeleteStaff(id : number){
     return this.http.delete(AppSettings.API_ENDPOINT+this.ENDPOINT+"/"+id).
-      pipe(catchError(err=> {return throwError(err)}));
+      pipe(catchError(err=> {return throwError(err)}), first());
   }
 
   GetStaff(id: number) {
     return this.http.get<Staff>(AppSettings.API_ENDPOINT+this.ENDPOINT+"/"+id).
-      pipe(catchError(err=> {return throwError(err)}));
+      pipe(catchError(err=> {return throwError(err)}), first());
   }
 
   UpdateStaff(staff : Staff){
-    return this.http.put(AppSettings.API_ENDPOINT+this.ENDPOINT+"/"+staff.id, staff)
-      .pipe(catchError(err=> {return throwError(err)}));
+    return this.http.put(AppSettings.API_ENDPOINT+this.ENDPOINT+"/"+staff.id, staff).
+      pipe(catchError(err=> {return throwError(err)}), first());
   }
 
   AddStaff(staff : StaffAdd){
-    return this.http.post(AppSettings.API_ENDPOINT+this.ENDPOINT+"/addstaff", staff).pipe(catchError(err=> {return throwError(err)}))
+    return this.http.post(AppSettings.API_ENDPOINT+this.ENDPOINT+"/addstaff", staff).
+        pipe(catchError(err=> {return throwError(err)}), first())
   }
 
 }
