@@ -15,7 +15,7 @@ export class AppComponent {
       this.loginService.Logout();
     }
     else {
-      this.loginService.Login();
+      this.loginService.sub.next(true);
     }
 
   }

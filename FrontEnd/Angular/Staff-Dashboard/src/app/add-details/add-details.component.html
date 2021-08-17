@@ -3,7 +3,7 @@
     <div class="select-type">
         <div class="select-drop" id="select-drop">
             <label class="type-label">Select staff type</label>
-            <select class="select-type" name="type" id="select-type" (change)="TypeUpdate($event)">
+            <select class="select-type" name="type" id="select-type" (change)="TypeUpdate($event)" [disabled]="dataAdded">
                 <!-- <option value="none" selected disabled hidden>Select Type</option> -->
                 <option value="Admin">Admin</option>
                 <option value="Teacher" selected>Teacher</option>
@@ -16,7 +16,7 @@
             <div class="add-form-subsection">
                 <label for="">Username:</label>
                 <input id="username" class="add-form-input" type="text" name="name" required [(ngModel)]="userName"
-                    #name="ngModel">
+                    #name="ngModel" [disabled]="dataAdded">
                 <div [hidden]="ValidateField(name)" class="alert-danger">
                     {{nameTxt}}
                 </div>
@@ -24,7 +24,7 @@
             <div class="add-form-subsection">
                 <label for="">Password:</label>
                 <input id="password" class="add-form-input" type="text" required name="password" [(ngModel)]="password"
-                    #pass="ngModel">
+                    #pass="ngModel" [disabled]="dataAdded">
                 <div [hidden]="ValidateField(pass)" class="alert-danger">
                     {{passTxt}}
                 </div>
@@ -34,7 +34,7 @@
             <div class="add-form-subsection">
                 <label for="">Date of Joining:</label>
                 <input id="dateofjoin" class="add-form-input" type="date" required name="date"
-                    [(ngModel)]="dateOfJoining" #date="ngModel" value={{dateOfJoining}}>
+                    [(ngModel)]="dateOfJoining" #date="ngModel" value={{dateOfJoining}} [disabled]="dataAdded">
                 <div [hidden]="ValidateField(date)" class="alert-danger">
                     {{dateTxt}}
                 </div>
@@ -42,7 +42,7 @@
             <div class="add-form-subsection">
                 <label for="">Experience:</label>
                 <input id="experience" class="add-form-input" type="number" required name="experience"
-                    [(ngModel)]="experience" #exp="ngModel" min=0>
+                    [(ngModel)]="experience" #exp="ngModel" min=0 [disabled]="dataAdded">
                 <div [hidden]="ValidateField(exp)" class="alert-danger">
                     {{expTxt}}
                 </div>
@@ -52,15 +52,12 @@
             <div class="add-form-subsection">
                 <label for="">Subject:</label>
                 <input id="subject" class="add-form-input" type="text" required name="subject" [(ngModel)]="subject"
-                    #sub="ngModel">
-                <div [hidden]="sub.valid || sub.pristine" class="alert-danger">
-                    Subject is required
-                </div>
+                    #sub="ngModel" [disabled]="dataAdded" #subj="ngModel">
             </div>
             <div class="add-form-subsection">
                 <label for="">Phone Number:</label>
                 <input id="phone" class="add-form-input" type="number" required name="phone" [(ngModel)]="phone"
-                    #phn="ngModel">
+                    #phn="ngModel" [disabled]="dataAdded">
                 <div [hidden]="ValidateField(phn)" class="alert-danger">
                     {{phnTxt}}
                 </div>

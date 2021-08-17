@@ -27,13 +27,16 @@ export class EditDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.staffService.GetStaff(this.id).pipe(catchError(err=>{ this.router.navigate(["/notfound"]) ;return throwError(err)})).subscribe(res => {this.staff = res;});
-    this.staffService.obs.subscribe(res => this.allStaffs = res);
+    this.staffService.GetStaff(this.id).
+      pipe(catchError(err=>{ this.router.navigate(["/notfound"]);
+                              return throwError(err)}))
+                                .subscribe(res => {this.staff = res;});
+    this.staffService.GetAllStaff().subscribe(res => this.allStaffs = res);
   }
 
   EditData(form: NgForm) {
     if (!form.pristine) {
-      this.staffService.UpdateStaff(this.staff!);
+      this.staffService.UpdateStaff(this.staff!).subscribe(res=> console.log("Update success"));
     }
   }
 

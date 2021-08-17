@@ -27,12 +27,11 @@ export class AddDetailsComponent implements OnInit {
   dataAdded = false;
 
 
-
   allStaffs: Staff[] = [];
   constructor(public staffService: StaffService) { }
 
   ngOnInit(): void {
-    this.staffService.obs.subscribe(res => this.allStaffs = res);
+    this.staffService.GetAllStaff().subscribe(res =>{this.allStaffs = res;});
   }
 
   AddData(form: NgForm){
@@ -45,7 +44,7 @@ export class AddDetailsComponent implements OnInit {
       phoneNumber : this.phone.toString(),
       type : this.type
     };
-    this.staffService.AddStaff(staff);  
+    this.staffService.AddStaff(staff).subscribe(res=> console.log("Data added"));  
     this.dataAdded = true;
   }
 
@@ -59,8 +58,8 @@ export class AddDetailsComponent implements OnInit {
   }
 
 
-  ValidateField(field: NgModel) {
-    if (!field.pristine) {
+  ValidateField(field: NgModel) {   
+    if (!field.pristine && !this.dataAdded) {
       switch(field.name){
         case "name":{
           if(this.allStaffs.find(x=> x.userName == field.value) == undefined){
@@ -114,6 +113,9 @@ export class AddDetailsComponent implements OnInit {
           else{
             return true;
           }
+        }
+        case "subj":{
+          return false;
         }
         case "phone":{
           if(!field.valid){

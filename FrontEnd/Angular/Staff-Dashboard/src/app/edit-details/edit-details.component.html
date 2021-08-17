@@ -5,7 +5,6 @@
             <div class="select-drop" id="select-drop">
                 <label class="type-label">Select staff type</label>
                 <select class="select-type" name="type" id="select-type">
-                    <!-- <option value="none" selected disabled hidden>Select Type</option> -->
                     <option value="Admin" [selected]="staff.type=='Admin'? true : false">Admin</option>
                     <option value="Teacher" [selected]="staff.type=='Teacher'? true : false">Teacher</option>
                     <option value="Support" [selected]="staff.type=='Support'? true : false">Support</option>
@@ -68,10 +67,6 @@
                 </div>
             </div>
             <div class="form-section">
-                <!-- <div class="add-form-subsection" *ngIf="mode == 'add'">
-                    <button type="submit" class="add-form-btn">Add Staff</button>
-                    <button class="add-form-btn">Reset</button>
-                </div> -->
                 <div class="add-form-subsection">
                     <button type="submit" class="add-form-btn" [disabled]="!form.form.valid">Update Data</button>
                 </div>
