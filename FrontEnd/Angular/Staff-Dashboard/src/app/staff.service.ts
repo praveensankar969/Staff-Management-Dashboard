@@ -1,53 +1,43 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { HttpService } from './http.service';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, map, shareReplay } from 'rxjs/operators';
 import { Staff } from './Modals/Staff';
 import { StaffAdd } from './Modals/StaffAdd';
+import { HttpClient } from '@angular/common/http';
+import { AppSettings } from './AppSettings';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StaffService {
+ 
+  private ENDPOINT : string = "staff";
 
-  
-  private subject = new BehaviorSubject<Staff[]>([]);
-  obs = this.subject.asObservable();
-
-  constructor(private http: HttpService) {
+  constructor(private http: HttpClient) {
   }
 
   GetAllStaff() {
-    this.http.FetchAllStaff().pipe(map(res=> res.sort((a,b)=> a.id - b.id))).
-      subscribe(res=> {this.subject.next(res); console.log("Fetch done")});
+    return this.http.get<Staff[]>(AppSettings.API_ENDPOINT+this.ENDPOINT).pipe(catchError(err=> {return throwError(err)}), 
+        map(res=> res.sort((a,b)=> a.id - b.id)), shareReplay());
   }
 
   DeleteStaff(id : number){
-    this.subject.next(this.subject.getValue().filter(x=> x.id != id));
-    this.http.DeleteStaff(id).subscribe(res=> console.log("Delete Success"));
+    return this.http.delete(AppSettings.API_ENDPOINT+this.ENDPOINT+"/"+id).
+      pipe(catchError(err=> {return throwError(err)}));
   }
 
   GetStaff(id: number) {
-    return this.http.FetchStaff(id);
+    return this.http.get<Staff>(AppSettings.API_ENDPOINT+this.ENDPOINT+"/"+id).
+      pipe(catchError(err=> {return throwError(err)}));
   }
 
   UpdateStaff(staff : Staff){
-    this.http.UpdateStaffDetail(staff).subscribe(res=> console.log("Update Success"));
-    var staffs = this.subject.getValue();
-    var index = staffs.findIndex(x=> x.id == staff.id);
-    staffs[index] = staff;
-    console.log(staffs)
-    this.subject.next(staffs);
-    this.GetAllStaff();
+    return this.http.put(AppSettings.API_ENDPOINT+this.ENDPOINT+"/"+staff.id, staff)
+      .pipe(catchError(err=> {return throwError(err)}));
   }
 
   AddStaff(staff : StaffAdd){
-    this.http.AddStaffDetail(staff).subscribe(res=> console.log("Data add success"));
-    var staffs = this.subject.getValue();
-    var newstaff = {...staff, id:0}
-    staffs.push(newstaff);
-    this.subject.next(staffs);
-    this.GetAllStaff();
+    return this.http.post(AppSettings.API_ENDPOINT+this.ENDPOINT+"/addstaff", staff).pipe(catchError(err=> {return throwError(err)}))
   }
 
 }

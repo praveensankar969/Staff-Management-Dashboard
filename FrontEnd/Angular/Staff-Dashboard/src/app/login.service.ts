@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Login } from './Modals/Login';
+import { HttpClient } from '@angular/common/http';
+import { AppSettings } from './AppSettings';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +12,11 @@ export class LoginService {
 
   sub = new BehaviorSubject<boolean>(false);
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  Login(){
-    this.sub.next(true);
+  Login(username : string, password : string) {
+    return this.http.post<Login>(AppSettings.API_ENDPOINT+"account/logon", {userName : username, password : password}).
+      pipe(catchError(err=> {return throwError(err)}));
   }
 
   Logout(){

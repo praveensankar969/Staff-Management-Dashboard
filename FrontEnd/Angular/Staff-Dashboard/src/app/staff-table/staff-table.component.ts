@@ -16,7 +16,7 @@ export class StaffTableComponent implements OnInit {
   prevIndex = 0;
   nextIndex = 10;
   total = 0;
-  staffsObs = new Observable<Staff[]>();
+  staffs : Staff[] = [];
   toggleDropdown = false;
   selectedRows: number[] = [];
   typeSelected: string = "";
@@ -25,7 +25,7 @@ export class StaffTableComponent implements OnInit {
   nameIcon = "south";
 
   constructor(public staffService: StaffService, private router: Router) { 
-    this.staffService.GetAllStaff();
+    
   }
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class StaffTableComponent implements OnInit {
   }
 
   Fetch() {
-    this.staffsObs = this.staffService.obs.pipe(tap(res => this.total = res.length));
+    this.staffService.GetAllStaff().pipe(tap(res => this.total = res.length)).subscribe(res=> this.staffs = res);
   }
 
   CheckboxSelected(event: Event) {
@@ -51,23 +51,23 @@ export class StaffTableComponent implements OnInit {
     if (this.filtered) {
       if (this.idIcon == "south") {
         this.idIcon = "north";
-        this.staffsObs = this.staffService.obs.pipe(map(res => res.filter(x => x.type == this.typeSelected).
-          sort((a, b) => b.id - a.id)));
+        this.staffs.filter(x => x.type == this.typeSelected).
+          sort((a, b) => b.id - a.id);
       }
       else {
         this.idIcon = "south";
-        this.staffsObs = this.staffService.obs.pipe(map(res => res.filter(x => x.type == this.typeSelected).
-          sort((a, b) => a.id - b.id)));
+        this.staffs.filter(x => x.type == this.typeSelected).
+          sort((a, b) => a.id - b.id);
       }
     }
     else {
       if (this.idIcon == "south") {
         this.idIcon = "north";
-        this.staffsObs = this.staffService.obs.pipe(map(res => res.sort((a, b) => b.id - a.id)));
+        this.staffs.sort((a, b) => b.id - a.id);
       }
       else {
         this.idIcon = "south";
-        this.staffsObs = this.staffService.obs.pipe(map(res => res.sort((a, b) => a.id - b.id)));
+        this.staffs.sort((a, b) => a.id - b.id);
       }
     }
 
@@ -77,23 +77,23 @@ export class StaffTableComponent implements OnInit {
     if (this.filtered) {
       if (this.nameIcon == "south") {
         this.nameIcon = "north";
-        this.staffsObs = this.staffService.obs.pipe(map(res => res.filter(x => x.type == this.typeSelected).
-          sort((a, b) => a.userName.localeCompare(b.userName))));
+        this.staffs.filter(x => x.type == this.typeSelected).
+          sort((a, b) => a.userName.localeCompare(b.userName));
       }
       else {
         this.nameIcon = "south";
-        this.staffsObs = this.staffService.obs.pipe(map(res => res.filter(x => x.type == this.typeSelected).
-          sort((a, b) => b.userName.localeCompare(a.userName))));
+        this.staffs.filter(x => x.type == this.typeSelected).
+          sort((a, b) => b.userName.localeCompare(a.userName));
       }
     }
     else {
       if (this.nameIcon == "south") {
         this.nameIcon = "north";
-        this.staffsObs = this.staffService.obs.pipe(map(res => res.sort((a, b) => b.id - a.id)));
+        this.staffs.sort((a, b) => b.id - a.id);
       }
       else {
         this.nameIcon = "south";
-        this.staffsObs = this.staffService.obs.pipe(map(res => res.sort((a, b) => a.id - b.id)));
+        this.staffs.sort((a, b) => a.id - b.id);
       }
     }
   }
@@ -107,9 +107,9 @@ export class StaffTableComponent implements OnInit {
     }
     if (choice == "ok") {
       for (let index = 0; index < this.selectedRows.length; index++) {
-        this.staffService.DeleteStaff(this.selectedRows[index]);
+        this.staffService.DeleteStaff(this.selectedRows[index]).subscribe(res=> {});
+        this.staffs = this.staffs.filter(x=> x.id != this.selectedRows[index]);
       }
-      this.selectedRows = [];
       this.staffService.GetAllStaff();
     }
   }
@@ -122,8 +122,9 @@ export class StaffTableComponent implements OnInit {
       choice = "cancel";
     }
     if (choice == "ok") {
-      this.selectedRows = this.selectedRows.filter(x => x != id);
-      this.staffService.DeleteStaff(id);
+      this.staffService.DeleteStaff(id).subscribe(res=> {
+            this.selectedRows = this.selectedRows.filter(x => x != id);
+            this.staffs = this.staffs.filter(x=> x.id != id)});
       this.staffService.GetAllStaff();
     }
 
@@ -135,8 +136,8 @@ export class StaffTableComponent implements OnInit {
     this.typeSelected = (event.target as HTMLAnchorElement).innerHTML;
     this.prevIndex = 0;
     this.nextIndex = this.perPage;
-    this.staffsObs = this.staffService.obs.pipe(map(res =>
-      res.filter(x => x.type == this.typeSelected)));
+    this.Fetch();
+    this.staffs = this.staffs.filter(x => x.type == this.typeSelected);
   }
 
   ClearFilter() {
